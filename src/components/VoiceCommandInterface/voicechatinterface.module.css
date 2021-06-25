@@ -1,0 +1,33 @@
+.container {
+  width: 50vw;
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.5em;
+  padding: 1em;
+  background-color: var(--color-white);
+}
+
+.aure-not-listening {
+  width: 30em;
+}
+
+.container img {
+  flex-grow: 1;
+  cursor: pointer;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 80vw;
+  }
+}
+
+@media (max-width: 1023px) {
+  .aure-not-listening {
+    width: 20em;
+  }
+}

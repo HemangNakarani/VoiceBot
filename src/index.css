@@ -1,0 +1,27 @@
+@import url("https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500&display=swap");
+
+:root {
+  --color-sky-blue: #00bae9;
+  --color-space-grey: #2e3841;
+  --color-sun-orange: #faa21b;
+  --color-earth-green: #70bf54;
+  --color-ocean-blue: #118acb;
+  --color-blanc: #f1f1f1;
+  --color-white: #fff;
+}
+
+body {
+  font-family: "Google Sans", sans-serif !important;
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+}
+
+h6 {
+  color: var(--color-space-grey);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}

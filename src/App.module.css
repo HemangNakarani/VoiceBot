@@ -1,0 +1,28 @@
+.App {
+  height: 80vh;
+  padding: 0;
+  margin: 0 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  align-self: center;
+  font-weight: 900;
+  font-size: 4em;
+}
+
+@media (max-width: 767px) {
+  .title {
+    align-self: center;
+    font-weight: 900;
+    font-size: 2em;
+  }
+}
+.App > img {
+  width: 20em;
+  object-fit: cover;
+}
