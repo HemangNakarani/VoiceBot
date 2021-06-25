@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "./static/css/main.9fe1b9f0.chunk.css",
+    "main.js": "./static/js/main.1fe0b287.chunk.js",
+    "main.js.map": "./static/js/main.1fe0b287.chunk.js.map",
+    "runtime-main.js": "./static/js/runtime-main.4dadc2b5.js",
+    "runtime-main.js.map": "./static/js/runtime-main.4dadc2b5.js.map",
+    "static/js/2.517d26e4.chunk.js": "./static/js/2.517d26e4.chunk.js",
+    "static/js/2.517d26e4.chunk.js.map": "./static/js/2.517d26e4.chunk.js.map",
+    "static/js/3.fe46464e.chunk.js": "./static/js/3.fe46464e.chunk.js",
+    "static/js/3.fe46464e.chunk.js.map": "./static/js/3.fe46464e.chunk.js.map",
+    "index.html": "./index.html",
+    "static/css/main.9fe1b9f0.chunk.css.map": "./static/css/main.9fe1b9f0.chunk.css.map",
+    "static/js/2.517d26e4.chunk.js.LICENSE.txt": "./static/js/2.517d26e4.chunk.js.LICENSE.txt",
+    "static/media/Chevron.12e8882c.svg": "./static/media/Chevron.12e8882c.svg",
+    "static/media/Voice.cd02eb0c.svg": "./static/media/Voice.cd02eb0c.svg",
+    "static/media/aura.2df63408.gif": "./static/media/aura.2df63408.gif",
+    "static/media/navigator.8851064a.gif": "./static/media/navigator.8851064a.gif",
+    "static/media/wave_animation.8a2228b1.svg": "./static/media/wave_animation.8a2228b1.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.4dadc2b5.js",
+    "static/js/2.517d26e4.chunk.js",
+    "static/css/main.9fe1b9f0.chunk.css",
+    "static/js/main.1fe0b287.chunk.js"
+  ]
+}
