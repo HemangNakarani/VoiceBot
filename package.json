@@ -1,0 +1,22 @@
+{
+  "name": "VoiceBot-Server",
+  "version": "1.0.0",
+  "description": "Dummy Project For VoiceBot",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "Hemang Nakarani",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/dialogflow": "^4.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
