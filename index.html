@@ -12,15 +12,15 @@
     <br /><br />
     <span id="message"></span>
     <br /><br />
-    <h3 id="redirect-link"></h3>
+    <pre id="response-text"></pre>
 
     <script>
       var sessionId = document.querySelector("#sessionId");
       var message = document.querySelector("#message");
-      var redirectLink = document.querySelector("#redirect-link");
+      var resposeText = document.querySelector("#response-text");
 
       async function fetchResponse(bodyObject) {
-        return fetch("/chat", {
+        return fetch("/api/v1", {
           method: "POST",
           body: JSON.stringify(bodyObject),
           headers: {
@@ -57,7 +57,7 @@
           sessionId: sessionId.value,
           query: command,
         }).then((data) => {
-          redirectLink.textContent = data.message;
+          resposeText.innerHTML = JSON.stringify(data.message, null, 2);
         });
       };
 

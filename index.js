@@ -13,20 +13,19 @@ const CREDENTIALS = JSON.parse(process.env.CREDENTIALS);
 
 // CORS
 app.use(cors()); // Enable All CORS Requests
-app.use("",express.static(__dirname))
-app.use(express.json())
+app.use("", express.static(__dirname));
+app.use(express.json());
 
 const server = http.createServer(app);
 const sessionClient = new dialogflow.SessionsClient({
-  projectId:PROJECT_ID,
-  credentials:CREDENTIALS
+  projectId: PROJECT_ID,
+  credentials: CREDENTIALS,
 });
 
-app.post("/chat", async (req, res) => {
+app.post("/api/v1", async (req, res) => {
   const { sessionId, query } = req.body;
 
   const languageCode = "en-US";
-
 
   //Define session path
   const sessionPath = sessionClient.projectAgentSessionPath(
@@ -54,32 +53,8 @@ app.post("/chat", async (req, res) => {
   try {
     const responses = await sessionClient.detectIntent(request);
     const result = responses[0].queryResult;
-
-    if (NODE_ENV === "development") {
-      console.log("Detected intent");
-      console.log(`  Query: ${result.queryText}`);
-      console.log(`  Response: ${result.fulfillmentText}`);
-      if (result.intent) {
-        console.log(`  Intent: ${result.intent.displayName}`);
-      } else {
-        console.log("  No intent matched.");
-      }
-      if (result.sentimentAnalysisResult) {
-        console.log("Detected sentiment");
-        console.log(
-          `  Score: ${result.sentimentAnalysisResult.queryTextSentiment.score}`
-        );
-        console.log(
-          `  Magnitude: ${result.sentimentAnalysisResult.queryTextSentiment.magnitude}`
-        );
-      } else {
-        console.log("No sentiment Analysis Found");
-      }
-    }
-
-    res.status(200).json({ message: result.fulfillmentText });
+    res.status(200).json({ message: result });
   } catch (e) {
-    console.log(e);
     res.status(500).json({
       error: e,
     });
@@ -106,7 +81,5 @@ app.use((error, req, res) => {
 const port = process.env.PORT || 4848;
 
 server.listen(port, () => {
-  console.log(
-    `Server is running in ${NODE_ENV} mode on port ${port}...`
-  );
+  console.log(`Server is running in ${NODE_ENV} mode on port ${port}...`);
 });
