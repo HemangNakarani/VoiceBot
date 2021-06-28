@@ -15,11 +15,7 @@ const Main = (): ReactElement => {
         ></link>,
       ]}
     >
-      <FrameContextConsumer>
-        {({ document }) => {
-          return <App />;
-        }}
-      </FrameContextConsumer>
+      <App />
     </Frame>
   );
 };
