@@ -1,5 +1,5 @@
 let mic = document.querySelector('.bot-mic-circle') 
-
+let wave = document.querySelector('.bot-mic-wave')
 navigator.mediaDevices.getUserMedia({ audio: true, video: false })
 .then(function(stream) {
 
@@ -8,7 +8,7 @@ navigator.mediaDevices.getUserMedia({ audio: true, video: false })
     const analyser = audioContext.createAnalyser();
 
     analyser.fftSize = 1024;
-    analyser.smoothingTimeConstant = 0.9
+    analyser.smoothingTimeConstant = 0.8
     audioSource.connect(analyser)
 
 
@@ -35,6 +35,10 @@ function volumeIndicator(volume){
 
     // You will get the volume in decibles 
     
+    let scale = volume/25;
+
+    wave.style.webkitTransform = `scale(${scale},${scale})`
+
 
 }
 
