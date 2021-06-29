@@ -1,14 +1,16 @@
-import React, { ReactElement } from "react";
+import React, { DOMElement, ReactElement } from "react";
 import style from "./voicecommandinterface.module.css";
 import Waves from "../../assets/wave_animation.svg";
 import Aura from "../../assets/aura.gif";
 import Loading from "../../assets/loading.gif";
 import Speech from "../../utils/SpeechRecognitionConfig";
 import { getIntent } from "../../utils/ApiService";
+import FindAndHighlight from "../../utils/FindAndHighlight";
 
 let WavesAsset = chrome.runtime.getURL(Waves);
 let AuraAsset = chrome.runtime.getURL(Aura);
 let LoadingAsset = chrome.runtime.getURL(Loading);
+let previousHighlighted: Element | null = null;
 
 enum SpeechState {
   listening = 1,
@@ -26,7 +28,15 @@ export default function VoiceCommandInterface(): ReactElement {
   async function handleCommand(command: String) {
     setSpeechState(SpeechState.loading);
     const intent = await getIntent({ query: command, sessionId: "huds7823" });
-    console.log(intent.parameters.fields);
+
+    if (intent.action === "input.unknown") {
+      setSpeechText(intent.fulfillmentText);
+    } else {
+      previousHighlighted = FindAndHighlight(
+        previousHighlighted,
+        intent.fulfillmentText
+      );
+    }
     setSpeechState(SpeechState.idle);
   }
 
