@@ -46,6 +46,10 @@ app.post("/api/v1", async (req, res) => {
       sentimentAnalysisRequestConfig: {
         analyzeQueryTextSentiment: true,
       },
+      contexts: [{
+        "name": "projects/voicebot-uxgb/agent/sessions/huds7823/contexts/editorial_calendar",
+        "lifespanCount": 5,
+      }]
     },
   };
 
