@@ -23,7 +23,7 @@ const sessionClient = new dialogflow.SessionsClient({
 });
 
 app.post("/api/v1", async (req, res) => {
-  const { sessionId, query } = req.body;
+  const { sessionId, query, contexts } = req.body;
 
   const languageCode = "en-US";
 
@@ -46,6 +46,7 @@ app.post("/api/v1", async (req, res) => {
       sentimentAnalysisRequestConfig: {
         analyzeQueryTextSentiment: true,
       },
+      contexts: contexts
     },
   };
 
