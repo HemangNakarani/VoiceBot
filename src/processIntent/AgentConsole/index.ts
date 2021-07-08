@@ -4,6 +4,7 @@ import RefreshContent from "./RefreshContent";
 import ColumnAction from "./ColumnAction";
 import DashboardAction from "./DashboardAction";
 import Search from "./Search";
+import FilterByDate from "./FilterByDate";
 
 export enum Intents {
   OpenAgentConsole = "AgentConsole.Open",
@@ -13,6 +14,7 @@ export enum Intents {
   ColumnAction = "AgentConsole.ColumnAction",
   DashboardAction = "AgentConsole.DashboardAction",
   Search = "AgentConsole.Search",
+  FilterByDate = "AgentConsole.FilterByDate",
 }
 
 export default {
@@ -22,4 +24,5 @@ export default {
   ColumnAction,
   DashboardAction,
   Search,
+  FilterByDate,
 };

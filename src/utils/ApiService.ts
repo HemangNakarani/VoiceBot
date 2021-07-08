@@ -1,8 +1,14 @@
 import axios, { AxiosResponse } from "axios";
 
+interface Icontext{
+  name:String,
+  lifespanCount:Number
+}
+
 interface IRequestBody {
   query: String;
   sessionId: String;
+  contexts:Array<Icontext>
 }
 
 export const getIntent: Function = (body: IRequestBody) => {

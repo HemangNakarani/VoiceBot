@@ -6,6 +6,7 @@ import Loading from "../../assets/loading.gif";
 import Recognition from "../../utils/SpeechRecognitionConfig";
 import { getIntent } from "../../utils/ApiService";
 import parseResponse from "../../processIntent/parseResponse";
+import { createContext } from "../../utils/utilities";
 
 let Microphone = chrome.runtime.getURL(MicrophoneIcon);
 let SprinklrLogo = chrome.runtime.getURL(SprinklrLogoIcon);
@@ -25,9 +26,12 @@ export default function VoiceCommandInterface(): ReactElement {
 
   async function handleCommand(command: String) {
     setSpeechState(SpeechStateEnum.loading);
+
+    let contexts = createContext("huds7823");
     const response = await getIntent({
       query: command,
-      sessionId: "husacdds7823",
+      sessionId: "huds7823",
+      contexts: contexts,
     });
 
     if (response.action === "input.unknown") {

@@ -36,6 +36,18 @@ export async function checkElement(selector: string) {
   return querySelector as HTMLElement;
 }
 
+export async function checkChildElement(
+  selectorElement: HTMLElement,
+  selector: string
+) {
+  let querySelector = null;
+  while (querySelector === null) {
+    await requestAnimationFrameAsync();
+    querySelector = selectorElement.querySelector(selector);
+  }
+  return querySelector as HTMLElement;
+}
+
 export async function checkElements(selector: string) {
   let querySelector = null;
   while (querySelector === null || querySelector?.length === 0) {
@@ -73,10 +85,59 @@ export function dateInddMMMyyyyFormat(date: Date) {
   );
 }
 
+export function dateInddMMMyyyyFormatAsArray(date: Date) {
+  let day = date.getDate();
+  let standardDay = day < 10 ? "0" + day : day;
+
+  return [standardDay, months[date.getMonth()], date.getFullYear()];
+}
+
 export function convertTimeZone(date: Date) {
   return new Date(
     date.toLocaleString("en-US", {
       timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
     })
   );
+}
+
+export function getContext(): string {
+  let host = window.location.host;
+  let pathname = window.location.href;
+
+  const calendar = new RegExp("/marketing/planner");
+  const asset = new RegExp("/marketing/asset-manager");
+  const care = new RegExp("/agent-console/");
+  const ads = new RegExp("/advertising/manager");
+
+  switch (true) {
+    case calendar.test(pathname):
+      return "editorial_calendar";
+
+    case asset.test(pathname):
+      return "asset_management";
+
+    case care.test(pathname):
+      return "care_agentconsole";
+
+    case ads.test(pathname):
+      return "ads_manager";
+
+    default:
+      return "";
+  }
+}
+
+export function createContext(sessionID: string) {
+  const current_active_context = getContext();
+  if (current_active_context === "") {
+    return [];
+  }
+
+  const contexts = [
+    {
+      name: `projects/voicebot-uxgb/agent/sessions/${sessionID}/contexts/${current_active_context}`,
+      lifespanCount: 1,
+    },
+  ];
+  return contexts;
 }
