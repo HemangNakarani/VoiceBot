@@ -9,7 +9,7 @@ let recognition = new SpeechRecognition();
 let speechRecognitionList = new SpeechGrammarList();
 speechRecognitionList.addFromString(grammar, 1);
 recognition.grammars = speechRecognitionList;
-recognition.lang = "en-IN";
+recognition.lang = "en-US";
 recognition.interimResults = false;
 
 export default recognition;

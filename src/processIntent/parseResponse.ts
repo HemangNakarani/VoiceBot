@@ -1,5 +1,7 @@
-import DigitalAssetManagement from "./DigitalAssetManagement";
-import { Intents as DAMIntents } from "./DigitalAssetManagement";
+import DigitalAssetManagement, {
+  Intents as DAMIntents,
+} from "./DigitalAssetManagement";
+import AgentConsole, { Intents as ACIntents } from "./AgentConsole";
 
 // All Intent Responses will come here, from here corresponding action will be taken on each Intent response.
 export default function parseResponse(response: any) {
@@ -45,6 +47,50 @@ export default function parseResponse(response: any) {
     case DAMIntents.SearchAssets: {
       DigitalAssetManagement.SearchAssets(
         response.parameters.fields["search-query"].stringValue
+      );
+      break;
+    }
+
+    case ACIntents.OpenAgentConsole: {
+      AgentConsole.OpenOrSelectDashboard({
+        dashboard: response.parameters.fields["dashboard"].stringValue,
+        actionType: "new",
+      });
+      break;
+    }
+
+    case ACIntents.OpenDashboard: {
+      AgentConsole.OpenOrSelectDashboard({
+        dashboard: response.parameters.fields["dashboard"].stringValue,
+        actionType: "filter",
+      });
+      break;
+    }
+
+    case ACIntents.OpenColumn: {
+      AgentConsole.OpenColumn(response.parameters.fields["column"].stringValue);
+      break;
+    }
+
+    case ACIntents.Refresh: {
+      AgentConsole.RefreshContent();
+      break;
+    }
+
+    case ACIntents.ColumnAction: {
+      AgentConsole.ColumnAction(response.parameters.fields);
+      break;
+    }
+
+    case ACIntents.DashboardAction: {
+      AgentConsole.DashboardAction(response.parameters.fields);
+      break;
+    }
+
+    case ACIntents.Search: {
+      AgentConsole.Search(
+        response.parameters.fields["search-query"].stringValue,
+        response.parameters.fields["include-exclude"].stringValue
       );
       break;
     }
