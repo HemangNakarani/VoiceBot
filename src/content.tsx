@@ -15,7 +15,12 @@ const Main = (): ReactElement => {
         ></link>,
       ]}
     >
-      <App />
+      <FrameContextConsumer>
+        {({ document }) => {
+          document.body.style = "margin: 0;";
+          return <App />;
+        }}
+      </FrameContextConsumer>
     </Frame>
   );
 };
@@ -34,7 +39,7 @@ app.style.display = "none";
 
 function toggle() {
   if (app.style.display === "none") {
-    app.style.display = "block";
+    app.style.display = "flex";
   } else {
     app.style.display = "none";
   }
