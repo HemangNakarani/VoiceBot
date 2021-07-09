@@ -1,9 +1,13 @@
 import DigitalAssetManagement from "./DigitalAssetManagement";
 import { Intents as DAMIntents } from "./DigitalAssetManagement";
-import AdsManager from "./AdsManager/index";
-import { Intents as AdsIntent } from "./AdsManager/index";
-import EditorialCalendar from "./EditorialCalendar/index";
-import { Intents as EditorialIntent } from "./EditorialCalendar/index";
+import AdsManager from "./AdsManager";
+import { Intents as AdsIntent } from "./AdsManager";
+import EditorialCalendar from "./EditorialCalendar";
+import { Intents as EditorialIntent } from "./EditorialCalendar";
+import Platform from './Platform'
+import {Intens as PlatformIntent} from "./Platform"
+
+
 
 interface valueInterface {
   kind: string;
@@ -12,6 +16,9 @@ interface valueInterface {
 
 // All Intent Responses will come here, from here corresponding action will be taken on each Intent response.
 export default function parseResponse(response: any) {
+
+  console.log(response)
+
   switch (response.intent.displayName) {
     case DAMIntents.OpenAssetPage: {
       DigitalAssetManagement.FilterAssets({
@@ -173,6 +180,19 @@ export default function parseResponse(response: any) {
       break;
     }
 
+    case PlatformIntent.ClearFilters:{
+      Platform.ClearFilters()
+      break;
+    }
+
+
+    case PlatformIntent.Search:{
+     
+      const parameters = response.parameters.fields;
+      const query = parameters["search-query"].stringValue;
+      Platform.Search(query);
+      break;
+    }
 
 
     default: {

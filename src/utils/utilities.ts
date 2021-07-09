@@ -113,7 +113,7 @@ export function getContext(): string {
       return "asset_management";
 
     case care.test(pathname):
-      return "care_console";
+      return "care_agentconsole";
 
     case ads.test(pathname):
       return "ads_manager";

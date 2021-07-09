@@ -27,8 +27,8 @@ export default function VoiceCommandInterface(): ReactElement {
   async function handleCommand(command: String) {
     setSpeechState(SpeechStateEnum.loading);
 
-    let contexts = createContext("huds7823")
-    const response = await getIntent({ query: command, sessionId: "huds7823" ,contexts:contexts});
+    let contexts = createContext("huds7826")
+    const response = await getIntent({ query: command, sessionId: "huds7826" ,contexts:contexts});
 
     if (response.action === "input.unknown") {
       setSpeechText(response.fulfillmentText);
