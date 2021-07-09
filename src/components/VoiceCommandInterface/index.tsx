@@ -4,6 +4,7 @@ import Waves from "../../assets/wave_animation.svg";
 import Aura from "../../assets/aura.gif";
 import Speech from "../../utils/SpeechRecognitionConfig";
 import { getIntent } from "../../utils/ApiService";
+import parseResponse from "../../processIntent/parseResponse";
 
 enum SpeechState {
   listening = 1,
@@ -20,9 +21,14 @@ export default function VoiceCommandInterface(): ReactElement {
 
   async function handleCommand(command: String) {
     setSpeechState(SpeechState.loading);
-    const intent = await getIntent({ query: command, sessionId: "dsfaSDF" });
+    const response = await getIntent({ query: command, sessionId: "dsfaSDF",contexts:[] });
     setSpeechState(SpeechState.idle);
-    window.open(`https://${intent}.com`, "_blank");
+    if (response.action === "input.unknown") {
+      setSpeechText(response.fulfillmentText);
+    } else {
+      parseResponse(response);
+    }
+  
   }
 
   function handleStateChange(newState: SpeechState) {
