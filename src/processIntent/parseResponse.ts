@@ -1,3 +1,4 @@
+import AgentConsole, { Intents as ACIntents } from "./AgentConsole";
 import DigitalAssetManagement from "./DigitalAssetManagement";
 import { Intents as DAMIntents } from "./DigitalAssetManagement";
 import AdsManager from "./AdsManager";
@@ -16,8 +17,6 @@ interface valueInterface {
 
 // All Intent Responses will come here, from here corresponding action will be taken on each Intent response.
 export default function parseResponse(response: any) {
-
-  console.log(response)
 
   switch (response.intent.displayName) {
     case DAMIntents.OpenAssetPage: {
@@ -64,6 +63,62 @@ export default function parseResponse(response: any) {
       );
       break;
     }
+
+    case ACIntents.OpenAgentConsole: {
+      AgentConsole.OpenOrSelectDashboard({
+        dashboard: response.parameters.fields["dashboard"].stringValue,
+        actionType: "new",
+      });
+      break;
+    }
+
+    case ACIntents.OpenDashboard: {
+      AgentConsole.OpenOrSelectDashboard({
+        dashboard: response.parameters.fields["dashboard"].stringValue,
+        actionType: "filter",
+      });
+      break;
+    }
+
+    case ACIntents.OpenColumn: {
+      AgentConsole.OpenColumn(response.parameters.fields["column"].stringValue);
+      break;
+    }
+
+    case ACIntents.Refresh: {
+      AgentConsole.RefreshContent();
+      break;
+    }
+
+    case ACIntents.ColumnAction: {
+      AgentConsole.ColumnAction(response.parameters.fields);
+      break;
+    }
+
+    case ACIntents.DashboardAction: {
+      AgentConsole.DashboardAction(response.parameters.fields);
+      break;
+    }
+
+    case ACIntents.Search: {
+      AgentConsole.Search(
+        response.parameters.fields["search-query"].stringValue,
+        response.parameters.fields["include-exclude"].stringValue
+      );
+      break;
+    }
+
+    case ACIntents.FilterByDate: {
+      console.log(response.parameters.fields);
+      AgentConsole.FilterByDate(
+        response.parameters.fields["date-time"],
+        response.parameters.fields["date-period"]
+      );
+      break;
+    }
+
+
+
 
     case AdsIntent.Open:{
       const parameters = response.parameters.fields;

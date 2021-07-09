@@ -48,7 +48,6 @@ export async function checkChildElement(
   return querySelector as HTMLElement;
 }
 
-
 export async function checkElements(selector: string) {
   let querySelector = null;
   while (querySelector === null || querySelector?.length === 0) {
@@ -86,6 +85,13 @@ export function dateInddMMMyyyyFormat(date: Date) {
   );
 }
 
+export function dateInddMMMyyyyFormatAsArray(date: Date) {
+  let day = date.getDate();
+  let standardDay = day < 10 ? "0" + day : day;
+
+  return [standardDay, months[date.getMonth()], date.getFullYear()];
+}
+
 export function convertTimeZone(date: Date) {
   return new Date(
     date.toLocaleString("en-US", {
@@ -93,8 +99,6 @@ export function convertTimeZone(date: Date) {
     })
   );
 }
-
-
 
 export function getContext(): string {
   let host = window.location.host;
@@ -123,17 +127,17 @@ export function getContext(): string {
   }
 }
 
-
-export function createContext(sessionID:string){
-
-  const current_active_context = getContext()
-  if(current_active_context===""){
-    return []
+export function createContext(sessionID: string) {
+  const current_active_context = getContext();
+  if (current_active_context === "") {
+    return [];
   }
-  
-  const contexts = [{
-    "name": `projects/voicebot-uxgb/agent/sessions/${sessionID}/contexts/${current_active_context}`,
-    "lifespanCount": 1,
-  }]
+
+  const contexts = [
+    {
+      name: `projects/voicebot-uxgb/agent/sessions/${sessionID}/contexts/${current_active_context}`,
+      lifespanCount: 1,
+    },
+  ];
   return contexts;
 }
