@@ -1,82 +1,130 @@
 import React, { ReactElement } from "react";
-import style from "./voicechatinterface.module.css";
-import Waves from "../../assets/wave_animation.svg";
-import Aura from "../../assets/aura.gif";
-import Speech from "../../utils/SpeechRecognitionConfig";
+import style from "./voicecommandinterface.module.css";
+import Microphone from "../../assets/Microphone.svg";
+import SprinklrLogo from "../../assets/SprinklrLogo.svg";
+import Recognition from "../../utils/SpeechRecognitionConfig";
 import { getIntent } from "../../utils/ApiService";
+import parseResponse from "../../processIntent/parseResponse";
+import { createContext } from "../../utils/utilities";
 
-enum SpeechState {
-  listening = 1,
-  idle = 2,
-  loading = 3,
+export enum SpeechStateEnum {
+  listening = "Listening...",
+  idle = "- Idle -",
+  loading = "Loading...",
 }
 
 export default function VoiceCommandInterface(): ReactElement {
-  const [speechState, setSpeechState] = React.useState<SpeechState>(
-    SpeechState.idle
+  const [speechState, setSpeechState] = React.useState<SpeechStateEnum>(
+    SpeechStateEnum.idle
   );
 
   const [speechText, setSpeechText] = React.useState<String>("");
 
   async function handleCommand(command: String) {
-    setSpeechState(SpeechState.loading);
-    const intent = await getIntent({ query: command, sessionId: "dsfaSDF" });
-    setSpeechState(SpeechState.idle);
-    window.open(`https://${intent}.com`, "_blank");
+    setSpeechState(SpeechStateEnum.loading);
+
+    let contexts = createContext("huds7823");
+    const response = await getIntent({
+      query: command,
+      sessionId: "huds7823",
+      contexts: contexts,
+    });
+
+    if (response.action === "input.unknown") {
+      setSpeechText(response.fulfillmentText);
+    } else {
+      parseResponse(response);
+    }
+    setSpeechState(SpeechStateEnum.idle);
   }
 
-  function handleStateChange(newState: SpeechState) {
-    setSpeechState((prevState: SpeechState): SpeechState => {
+  function handleStateChange(newState: SpeechStateEnum) {
+    setSpeechState((prevState: SpeechStateEnum): SpeechStateEnum => {
       return newState;
     });
   }
 
   React.useEffect((): void => {
-    Speech.onaudiostart = function () {
+    Recognition.onaudiostart = function () {
       setSpeechText(". . .");
-      handleStateChange(SpeechState.listening);
+      handleStateChange(SpeechStateEnum.listening);
     };
 
-    Speech.onresult = function (event: any) {
+    Recognition.onresult = function (event: any) {
       var last = event.results.length - 1;
       var command: String = event.results[last][0].transcript;
       setSpeechText(command);
       handleCommand(command);
     };
 
-    Speech.onspeechend = function () {
-      Speech.stop();
-      handleStateChange(SpeechState.idle);
+    Recognition.onspeechend = function () {
+      Recognition.stop();
+      handleStateChange(SpeechStateEnum.idle);
     };
 
-    Speech.onerror = function (event: Event) {
-      handleStateChange(SpeechState.idle);
+    Recognition.onerror = function (event: Event) {
+      handleStateChange(SpeechStateEnum.idle);
       console.log(event);
     };
   }, []);
 
   return (
-    <div className={style.container}>
-      {speechState === SpeechState.listening ? (
-        <>
-          <h6>Tap Aura to give commands</h6>
-          <img src={Waves} alt="waves-gif"></img>
-        </>
-      ) : speechState === SpeechState.loading ? null : (
-        <>
-          <h6>Tap Aura to give commands</h6>
-          <div className={style["aure-not-listening"]}>
-            <img
-              src={Aura}
-              alt="aura-gif"
-              onClick={(): void => {
-                Speech.start();
-              }}
-            ></img>
+    <>
+      <div className={style["container"]}>
+        <div className={style["bot-container"]}>
+          <div className={style["bot-header"]}>
+            <div className={style["bot-header-logo"]}>
+              <img
+                src={SprinklrLogo}
+                alt=" Logo"
+                className={style["bot-header-logo"]}
+              />
+            </div>
+
+            <h1 className={style["bot-header-heading"]}>
+              <span>Hello !</span>
+            </h1>
+
+            <h2 className={style["bot-header-question"]}>
+              <span>Can we help you?</span>
+            </h2>
           </div>
-        </>
-      )}
-      <h2>{speechText}</h2>
-    </div>
+
+          <h1 className={style["bot-listening-heading"]}>
+            <span>{speechState}</span>
+          </h1>
+          <p className={style["bot-recognised-text"]}>
+            <span>{speechText}</span>
+          </p>
+
+          <div className={style["bot-mic-container"]}>
+            <div
+              className={
+                speechState === SpeechStateEnum.listening
+                  ? style["bot-outer-wave"]
+                  : ""
+              }
+            ></div>
+
+            <div
+              className={
+                speechState === SpeechStateEnum.listening
+                  ? style["bot-mic-wave"]
+                  : ""
+              }
+            ></div>
+
+            <div
+              className={style["bot-mic-circle"]}
+              onClick={(): void => {
+                Recognition.start();
+              }}
+            >
+              <img src={Microphone} width="30" alt="Microphone" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
