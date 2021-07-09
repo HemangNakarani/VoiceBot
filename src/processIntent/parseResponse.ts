@@ -2,6 +2,8 @@ import AdsManager from "./AdsManager";
 import { Intents as AdsIntent } from "./AdsManager";
 import EditorialCalendar from "./EditorialCalendar";
 import { Intents as EditorialIntent } from "./EditorialCalendar";
+import DAM, { Intents as DAMIntents } from "./DigitalAssetsManagement";
+import AgentConsole, { Intents as ACIntenets } from "./AgentConsole";
 
 // All Intent Responses will come here, from here corresponding action will be taken on each Intent response.
 export default function parseResponse(response: any) {
@@ -41,6 +43,16 @@ export default function parseResponse(response: any) {
       let days = Math.round((endDate - startDate) / oneDay);
       startDate = startDate + oneDay;
       EditorialCalendar.SetPeriod(startDate, days);
+      break;
+    }
+
+    case DAMIntents.Open: {
+      DAM.Open();
+      break;
+    }
+
+    case ACIntenets.Open: {
+      AgentConsole.Open();
       break;
     }
 
