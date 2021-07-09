@@ -12,7 +12,6 @@ interface IRequestBody {
 }
 
 export const getIntent: Function = (body: IRequestBody) => {
-  console.log(body)
   return axios
     .post("https://demo-voicebot.herokuapp.com/api/v1/", body)
     .then(({ data }: AxiosResponse) => {

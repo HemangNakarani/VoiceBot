@@ -18,6 +18,7 @@ interface valueInterface {
 // All Intent Responses will come here, from here corresponding action will be taken on each Intent response.
 export default function parseResponse(response: any) {
 
+  console.log(response)
   switch (response.intent.displayName) {
     case DAMIntents.OpenAssetPage: {
       DigitalAssetManagement.FilterAssets({

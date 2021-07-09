@@ -27,10 +27,10 @@ export default function VoiceCommandInterface(): ReactElement {
   async function handleCommand(command: String) {
     setSpeechState(SpeechStateEnum.loading);
 
-    let contexts = createContext("huds7823");
+    let contexts = createContext("huds7829");
     const response = await getIntent({
       query: command,
-      sessionId: "huds7823",
+      sessionId: "huds7829",
       contexts: contexts,
     });
 
