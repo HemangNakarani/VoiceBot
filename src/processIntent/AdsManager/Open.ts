@@ -24,7 +24,7 @@ export default function open(entity:string){
             break;
     }
 
-    window.open(url,"_blank")
+    window.open(url,"SingleSecondaryWindowName")
 
 }
 

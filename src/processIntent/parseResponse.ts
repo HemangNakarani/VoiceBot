@@ -1,17 +1,7 @@
-
 import AdsManager from "./AdsManager";
 import { Intents as AdsIntent } from "./AdsManager";
 import EditorialCalendar from "./EditorialCalendar";
 import { Intents as EditorialIntent } from "./EditorialCalendar";
-import Platform from './Platform'
-import {Intens as PlatformIntent} from "./Platform"
-
-
-
-interface valueInterface {
-  kind: string;
-  stringValue: string;
-}
 
 // All Intent Responses will come here, from here corresponding action will be taken on each Intent response.
 export default function parseResponse(response: any) {
@@ -29,10 +19,7 @@ export default function parseResponse(response: any) {
     case EditorialIntent.Open:{
       EditorialCalendar.Open()
       break;
-    }
-
-
-  
+    }  
 
     case EditorialIntent.SetDate: {
       const parameters = response.parameters.fields;
@@ -56,22 +43,6 @@ export default function parseResponse(response: any) {
       EditorialCalendar.SetPeriod(startDate, days);
       break;
     }
-
-
-    case PlatformIntent.ClearFilters:{
-      Platform.ClearFilters()
-      break;
-    }
-
-
-    case PlatformIntent.Search:{
-     
-      const parameters = response.parameters.fields;
-      const query = parameters["search-query"].stringValue;
-      Platform.Search(query);
-      break;
-    }
-
 
     default: {
       console.log("No Matched Intents");
