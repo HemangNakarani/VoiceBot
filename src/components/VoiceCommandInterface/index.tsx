@@ -6,7 +6,8 @@ import Recognition from "../../utils/SpeechRecognitionConfig";
 import { getIntent } from "../../utils/ApiService";
 import parseResponse from "../../processIntent/parseResponse";
 import { createContext } from "../../utils/utilities";
-
+import ListeningAnimation from '../ListeningAnimation/listening'
+import Permission from '../Permission/index'
 let Microphone = chrome.runtime.getURL(MicrophoneIcon);
 let SprinklrLogo = chrome.runtime.getURL(SprinklrLogoIcon);
 
@@ -21,7 +22,14 @@ export default function VoiceCommandInterface(): ReactElement {
     SpeechStateEnum.idle
   );
 
-  const [speechText, setSpeechText] = React.useState<String>("");
+
+  function minimize(){
+    let app = document.getElementById('my-extension-root') as HTMLDivElement
+    app.style.display = "none"
+  }
+
+
+  const [speechText, setSpeechText] = React.useState<ReactElement>();
 
   async function handleCommand(command: String) {
     setSpeechState(SpeechStateEnum.loading);
@@ -49,14 +57,15 @@ export default function VoiceCommandInterface(): ReactElement {
 
   React.useEffect((): void => {
     Recognition.onaudiostart = function () {
-      setSpeechText(". . .");
+      setSpeechText( <ListeningAnimation></ListeningAnimation>);
       handleStateChange(SpeechStateEnum.listening);
     };
 
     Recognition.onresult = function (event: any) {
       var last = event.results.length - 1;
       var command: String = event.results[last][0].transcript;
-      setSpeechText(command);
+      console.log(command)
+      setSpeechText(<>{command}</>);
       handleCommand(command);
     };
 
@@ -75,7 +84,14 @@ export default function VoiceCommandInterface(): ReactElement {
     <>
       <div className={style["container"]}>
         <div className={style["bot-container"]}>
-          <div className={style["bot-header"]}>
+          <div style={{color:"white",float:"right",margin:"10px 10px 0 0"}} onClick={minimize}>
+            <div className={style['minimize']} id="bot-minimize-btn">
+              <div className={style['minimizebutton']}>&ndash;</div>
+            </div>
+          </div>
+
+          <Permission></Permission>
+          {/* <div className={style["bot-header"]}>
             <div className={style["bot-header-logo"]}>
               <img
                 src={SprinklrLogo}
@@ -85,7 +101,7 @@ export default function VoiceCommandInterface(): ReactElement {
             </div>
 
             <h1 className={style["bot-header-heading"]}>
-              <span>Hello !</span>
+              <span>Hello!</span>
             </h1>
 
             <h2 className={style["bot-header-question"]}>
@@ -96,9 +112,15 @@ export default function VoiceCommandInterface(): ReactElement {
           <h1 className={style["bot-listening-heading"]}>
             <span>{speechState}</span>
           </h1>
-          <p className={style["bot-recognised-text"]}>
+          <div className={style["bot-recognised-text"]}>
+         
             <span>{speechText}</span>
-          </p>
+          </div>
+
+          <div>
+
+     
+          </div>
 
           <div className={style["bot-mic-container"]}>
             <div
@@ -116,7 +138,7 @@ export default function VoiceCommandInterface(): ReactElement {
             >
               <img src={Microphone} width="30" />
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </>

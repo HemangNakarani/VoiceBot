@@ -6,3 +6,13 @@
   margin: 0;
   padding: 0;
 }
+
+:root {
+  --color-sky-blue: #00bae9;
+  --color-space-grey: #2e3841;
+  --color-sun-orange: #faa21b;
+  --color-earth-green: #70bf54;
+  --color-ocean-blue: #118acb;
+  --color-blanc: #f1f1f1;
+  --color-white: #fff;
+}

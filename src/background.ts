@@ -17,4 +17,13 @@ chrome.omnibox.onInputEntered.addListener(function (text) {
   }
 });
 
+
+chrome.runtime.onMessage.addListener(function (request, sender) {
+  if (request.type === "OPEN_WEBSITE_SETTINGS") {
+    chrome.tabs.create({
+      url: "chrome://settings/content/siteDetails?site=https://champagne.sprinklr.com",
+    });
+  }
+});
+
 export {};

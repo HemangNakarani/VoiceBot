@@ -32,6 +32,8 @@ const app = document.createElement("div");
 const button = document.createElement("div");
 const container = document.createElement("div");
 
+
+
 app.id = "my-extension-root";
 button.id = "drag-button";
 container.classList.add("container");
@@ -47,7 +49,6 @@ app.style.display = "none";
 function toggle() {
   if (app.style.display === "none") {
     app.style.display = "flex";
-
     // Reset
     app.style.top = "";
     app.style.left = "";
@@ -64,13 +65,17 @@ chrome.runtime.onMessage.addListener(function (request: any) {
   if (message === "BROWSER_ACTION_CLICKED") {
     toggle();
   }
+
+  
 });
+
 
 // For Dragging Injected Component
 dragElement(
   document.getElementById("my-extension-root") as HTMLElement,
   document.getElementById("drag-button") as HTMLElement
 );
+
 
 function dragElement(elem: HTMLElement, button: HTMLElement) {
   button.onmousedown = dragMouseDown;

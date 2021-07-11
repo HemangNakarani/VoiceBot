@@ -49,7 +49,7 @@
   justify-content: center;
   align-items: center;
   padding: 20px;
-  background-color: red;
+  background-color: #f1366b;
   border-radius: 50%;
   cursor: pointer;
 }
@@ -90,4 +90,38 @@
   opacity: 0.7;
   min-width: 8em;
   min-height: 8em;
+}
+
+.minimize {
+  background: #bab2b5;
+  font-size: 18px;
+  line-height: 14px;
+  width: 20px;
+  height: 20px;
+  border: 1px solid grey;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 1000;
+}
+
+.minimize:active {
+  background: aliceblue;
+  border: 1px solid #af7c33;
+}
+
+.minimize:active .minimizebutton {
+  color: black;
+}
+
+.minimizebutton {
+  color: white;
+  cursor: default;
+  user-select: none;
+}
+
+.minimizebutton:hover {
+  color: white;
+  visibility: visible !important;
 }
