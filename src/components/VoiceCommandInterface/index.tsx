@@ -68,6 +68,9 @@ export default function VoiceCommandInterface(): ReactElement {
     Recognition.onerror = function (event: Event) {
       handleStateChange(SpeechStateEnum.idle);
       alert("Make Sure You have given permisson to access microphone");
+      chrome.runtime.sendMessage(chrome.runtime.id, {
+        type: "OPEN_WEBSITE_SETTINGS",
+      });
       console.log(event);
     };
   }, []);
