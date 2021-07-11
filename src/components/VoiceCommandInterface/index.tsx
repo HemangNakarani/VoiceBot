@@ -2,7 +2,6 @@ import React, { ReactElement } from "react";
 import style from "./voicecommandinterface.module.css";
 import MicrophoneIcon from "../../assets/Microphone.svg";
 import SprinklrLogoIcon from "../../assets/SprinklrLogo.svg";
-import Loading from "../../assets/loading.gif";
 import Recognition from "../../utils/SpeechRecognitionConfig";
 import { getIntent } from "../../utils/ApiService";
 import parseResponse from "../../processIntent/parseResponse";

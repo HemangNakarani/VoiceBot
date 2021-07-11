@@ -11,4 +11,10 @@ chrome.browserAction.onClicked.addListener(function () {
   });
 });
 
+chrome.omnibox.onInputEntered.addListener(function (text) {
+  if (text === "open") {
+    chrome.tabs.create({ url: "https://champagne.sprinklr.com" });
+  }
+});
+
 export {};

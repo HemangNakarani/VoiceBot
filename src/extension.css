@@ -19,12 +19,29 @@ body {
   margin: 1em;
   padding: 0;
   width: 400px;
-  position: fixed;
   height: 680px;
   bottom: 0px;
   right: 0px;
-  z-index: 2147483647;
+  z-index: 2147483645;
   border-radius: 1em;
+  position: absolute;
+  display: flex;
+}
+
+#my-extension-root .container {
+  height: 100%;
+  width: 100%;
+}
+
+#drag-button {
+  height: 40px;
+  width: 40px;
+  margin-left: 0.8em;
+  background-color: gray;
+  opacity: 0.5;
+  border-radius: 1em 0 100% 0;
+  position: absolute;
+  cursor: move;
 }
 
 #my-extension-root iframe {
