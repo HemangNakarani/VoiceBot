@@ -93,35 +93,16 @@
 }
 
 .minimize {
-  background: #bab2b5;
-  font-size: 18px;
-  line-height: 14px;
-  width: 20px;
-  height: 20px;
-  border: 1px solid grey;
+  background-color: gray;
+  opacity: 0.5;
+  font-size: 1em;
+  line-height: 0.75em;
+  width: 1.25em;
+  height: 1.25em;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   font-weight: 1000;
-}
-
-.minimize:active {
-  background: aliceblue;
-  border: 1px solid #af7c33;
-}
-
-.minimize:active .minimizebutton {
-  color: black;
-}
-
-.minimizebutton {
-  color: white;
-  cursor: default;
-  user-select: none;
-}
-
-.minimizebutton:hover {
-  color: white;
-  visibility: visible !important;
+  cursor: pointer;
 }

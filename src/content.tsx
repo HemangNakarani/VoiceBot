@@ -1,4 +1,3 @@
-import { element } from "prop-types";
 import React, { ReactElement } from "react";
 import ReactDOM from "react-dom";
 import Frame, { FrameContextConsumer } from "react-frame-component";
@@ -32,8 +31,6 @@ const app = document.createElement("div");
 const button = document.createElement("div");
 const container = document.createElement("div");
 
-
-
 app.id = "my-extension-root";
 button.id = "drag-button";
 container.classList.add("container");
@@ -65,17 +62,13 @@ chrome.runtime.onMessage.addListener(function (request: any) {
   if (message === "BROWSER_ACTION_CLICKED") {
     toggle();
   }
-
-  
 });
-
 
 // For Dragging Injected Component
 dragElement(
   document.getElementById("my-extension-root") as HTMLElement,
   document.getElementById("drag-button") as HTMLElement
 );
-
 
 function dragElement(elem: HTMLElement, button: HTMLElement) {
   button.onmousedown = dragMouseDown;

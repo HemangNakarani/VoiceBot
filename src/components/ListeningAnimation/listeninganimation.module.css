@@ -1,52 +1,46 @@
-
-
 @keyframes swing {
-    0% { -webkit-transform: translateY(0px); }
-    50% { -webkit-transform: translateY(15px); }
-    100% { -webkit-transform: translateY(0px); }
+  0% {
+    -webkit-transform: translateY(0px);
+  }
+  50% {
+    -webkit-transform: translateY(15px);
+  }
+  100% {
+    -webkit-transform: translateY(0px);
+  }
 }
-
 
 .dot-content {
-	
-	height: 75px;
-    display: flex;
-    flex: 1 auto;
-    justify-content: center;
-    gap: 10px;
-
+  height: 5em;
+  display: flex;
+  flex: 1 auto;
+  justify-content: center;
+  gap: 0.5em;
 }
-
-
 
 .dot {
-	width: 15px;
-	height: 15px;
-	border-radius: 50px;
-	animation-name: swing;
-	animation-duration: 1.5s;
-	animation-iteration-count: infinite;
-	animation-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1);
+  width: 0.75em;
+  height: 0.75em;
+  border-radius: 50%;
+  animation-name: swing;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.sky-blue-dot{
-
-    background-color: var(--color-sky-blue);
-
+.sky-blue-dot {
+  background-color: var(--color-sky-blue);
 }
-.sun-orange-dot{
-
-    animation-delay: 0.15s; 
-    background-color: var(--color-sun-orange)
+.sun-orange-dot {
+  animation-delay: 0.15s;
+  background-color: var(--color-sun-orange);
 }
 
-.earth-green-dot{
- 
-    animation-delay: 0.30s; 
-    background-color: var(--color-earth-green)
+.earth-green-dot {
+  animation-delay: 0.3s;
+  background-color: var(--color-earth-green);
 }
-.ocean-blue-dot{
-
-    animation-delay: 0.45s; 
-    background-color: var(--color-ocean-blue)
+.ocean-blue-dot {
+  animation-delay: 0.45s;
+  background-color: var(--color-ocean-blue);
 }
