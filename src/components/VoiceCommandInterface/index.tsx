@@ -7,7 +7,6 @@ import { getIntent } from "../../utils/ApiService";
 import parseResponse from "../../processIntent/parseResponse";
 import { createContext } from "../../utils/utilities";
 import ListeningAnimation from '../ListeningAnimation/listening'
-import Permission from '../Permission/index'
 let Microphone = chrome.runtime.getURL(MicrophoneIcon);
 let SprinklrLogo = chrome.runtime.getURL(SprinklrLogoIcon);
 
@@ -27,7 +26,6 @@ export default function VoiceCommandInterface(): ReactElement {
     let app = document.getElementById('my-extension-root') as HTMLDivElement
     app.style.display = "none"
   }
-
 
   const [speechText, setSpeechText] = React.useState<ReactElement>();
 
@@ -76,11 +74,6 @@ export default function VoiceCommandInterface(): ReactElement {
 
     Recognition.onerror = function (event: Event) {
       handleStateChange(SpeechStateEnum.idle);
-      alert("Make Sure You have given permisson to access microphone");
-      chrome.runtime.sendMessage(chrome.runtime.id, {
-        type: "OPEN_WEBSITE_SETTINGS",
-      });
-      console.log(event);
     };
   }, []);
 
@@ -93,9 +86,7 @@ export default function VoiceCommandInterface(): ReactElement {
               <div className={style['minimizebutton']}>&ndash;</div>
             </div>
           </div>
-
-          <Permission></Permission>
-          {/* <div className={style["bot-header"]}>
+          <div className={style["bot-header"]}>
             <div className={style["bot-header-logo"]}>
               <img
                 src={SprinklrLogo}
@@ -142,7 +133,7 @@ export default function VoiceCommandInterface(): ReactElement {
             >
               <img src={Microphone} width="30" />
             </div>
-          </div> */}
+          </div>
         </div>
       </div>
     </>
