@@ -6,7 +6,8 @@ import Recognition from "../../utils/SpeechRecognitionConfig";
 import { getIntent } from "../../utils/ApiService";
 import parseResponse from "../../processIntent/parseResponse";
 import { createContext } from "../../utils/utilities";
-import ListeningAnimation from '../ListeningAnimation/listening'
+import ListeningAnimation from "../ListeningAnimation/listening";
+import Permission from "../Permission/index";
 let Microphone = chrome.runtime.getURL(MicrophoneIcon);
 let SprinklrLogo = chrome.runtime.getURL(SprinklrLogoIcon);
 
@@ -21,14 +22,8 @@ export default function VoiceCommandInterface(): ReactElement {
     SpeechStateEnum.idle
   );
 
-
-  function minimize(){
-    let app = document.getElementById('my-extension-root') as HTMLDivElement
-    app.style.display = "none"
-  }
-
   const [speechText, setSpeechText] = React.useState<ReactElement>();
-
+  const [microphonePermitted, setMicrophonePermitted] = React.useState(true);
   async function handleCommand(command: String) {
     setSpeechState(SpeechStateEnum.loading);
 
@@ -53,16 +48,21 @@ export default function VoiceCommandInterface(): ReactElement {
     });
   }
 
+  function handleMinimize() {
+    let app = document.getElementById("my-extension-root") as HTMLDivElement;
+    app.style.display = "none";
+  }
+
   React.useEffect((): void => {
     Recognition.onaudiostart = function () {
-      setSpeechText( <ListeningAnimation></ListeningAnimation>);
+      setSpeechText(<ListeningAnimation />);
       handleStateChange(SpeechStateEnum.listening);
     };
 
     Recognition.onresult = function (event: any) {
       var last = event.results.length - 1;
       var command: String = event.results[last][0].transcript;
-      console.log(command)
+      console.log(command);
       setSpeechText(<>{command}</>);
       handleCommand(command);
     };
@@ -72,8 +72,11 @@ export default function VoiceCommandInterface(): ReactElement {
       handleStateChange(SpeechStateEnum.idle);
     };
 
-    Recognition.onerror = function (event: Event) {
+    Recognition.onerror = function (event: SpeechRecognitionErrorEvent) {
       handleStateChange(SpeechStateEnum.idle);
+      if(event.error ==="not-allowed"){
+        setMicrophonePermitted(false);
+      }
     };
   }, []);
 
@@ -81,59 +84,68 @@ export default function VoiceCommandInterface(): ReactElement {
     <>
       <div className={style["container"]}>
         <div className={style["bot-container"]}>
-          <div style={{color:"white",float:"right",margin:"10px 10px 0 0"}} onClick={minimize}>
-            <div className={style['minimize']} id="bot-minimize-btn">
-              <div className={style['minimizebutton']}>&ndash;</div>
+          <div
+            style={{
+              color: "white",
+              float: "right",
+              margin: "10px 10px 0 0",
+            }}
+            onClick={handleMinimize}
+          >
+            <div className={style["minimize"]} id="bot-minimize-btn">
+              <div className={style["minimizebutton"]}>&ndash;</div>
             </div>
           </div>
-          <div className={style["bot-header"]}>
-            <div className={style["bot-header-logo"]}>
-              <img
-                src={SprinklrLogo}
-                alt=" Logo"
-                className={style["bot-header-logo"]}
-              />
-            </div>
+          {microphonePermitted ? (
+            <>
+              <div className={style["bot-header"]}>
+                <div className={style["bot-header-logo"]}>
+                  <img
+                    src={SprinklrLogo}
+                    alt=" Logo"
+                    className={style["bot-header-logo"]}
+                  />
+                </div>
 
-            <h1 className={style["bot-header-heading"]}>
-              <span>Hello!</span>
-            </h1>
+                <h1 className={style["bot-header-heading"]}>
+                  <span>Hello!</span>
+                </h1>
 
-            <h2 className={style["bot-header-question"]}>
-              <span>Can we help you?</span>
-            </h2>
-          </div>
+                <h2 className={style["bot-header-question"]}>
+                  <span>Can we help you?</span>
+                </h2>
+              </div>
 
-          <h1 className={style["bot-listening-heading"]}>
-            <span>{speechState}</span>
-          </h1>
-          <div className={style["bot-recognised-text"]}>
-         
-            <span>{speechText}</span>
-          </div>
+              <h1 className={style["bot-listening-heading"]}>
+                <span>{speechState}</span>
+              </h1>
+              <div className={style["bot-recognised-text"]}>
+                <span>{speechText}</span>
+              </div>
 
-          <div>
+              <div></div>
 
-     
-          </div>
-
-          <div className={style["bot-mic-container"]}>
-            <div
-              className={
-                speechState === SpeechStateEnum.listening
-                  ? style["bot-mic-wave"]
-                  : ""
-              }
-            ></div>
-            <div
-              className={style["bot-mic-circle"]}
-              onClick={(): void => {
-                Recognition.start();
-              }}
-            >
-              <img src={Microphone} width="30" />
-            </div>
-          </div>
+              <div className={style["bot-mic-container"]}>
+                <div id="bot-volume-wave"
+                  className={
+                    speechState === SpeechStateEnum.listening
+                      ? style["bot-mic-wave"]
+                      : ""
+                  }
+                ></div>
+                <div
+                  className={style["bot-mic-circle"]}
+                  onClick={(): void => {
+                    Recognition.start();
+                  }}
+                >
+                  <img src={Microphone} width="30" />
+                </div>
+              </div>
+            </>
+          ) : (
+            <Permission />
+          )}
         </div>
       </div>
     </>
