@@ -62,7 +62,6 @@ export default function VoiceCommandInterface(): ReactElement {
     Recognition.onresult = function (event: any) {
       var last = event.results.length - 1;
       var command: String = event.results[last][0].transcript;
-      console.log(command);
       setSpeechText(<>{command}</>);
       handleCommand(command);
     };
@@ -74,8 +73,14 @@ export default function VoiceCommandInterface(): ReactElement {
 
     Recognition.onerror = function (event: SpeechRecognitionErrorEvent) {
       handleStateChange(SpeechStateEnum.idle);
-      if(event.error ==="not-allowed"){
+      if (event.error === "not-allowed") {
         setMicrophonePermitted(false);
+      }
+      // condition for no-speech error
+      else if (event.error === "no-speech") {
+        setSpeechText(<>{"No Speech Recognised !!"}</>);
+      } else {
+        setSpeechText(<>{event.error}</>);
       }
     };
   }, []);
@@ -120,13 +125,16 @@ export default function VoiceCommandInterface(): ReactElement {
                 <span>{speechState}</span>
               </h1>
               <div className={style["bot-recognised-text"]}>
-                <span>{speechText}</span>
+                <span>
+                  {speechState === SpeechStateEnum.idle ? "..." : speechText}
+                </span>
               </div>
 
               <div></div>
 
               <div className={style["bot-mic-container"]}>
-                <div id="bot-volume-wave"
+                <div
+                  id="bot-volume-wave"
                   className={
                     speechState === SpeechStateEnum.listening
                       ? style["bot-mic-wave"]
