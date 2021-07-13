@@ -48,11 +48,6 @@ export default function VoiceCommandInterface(): ReactElement {
     });
   }
 
-  function handleMinimize() {
-    let app = document.getElementById("my-extension-root") as HTMLDivElement;
-    app.style.display = "none";
-  }
-
   React.useEffect((): void => {
     Recognition.onaudiostart = function () {
       setSpeechText(<ListeningAnimation />);
@@ -89,18 +84,6 @@ export default function VoiceCommandInterface(): ReactElement {
     <>
       <div className={style["container"]}>
         <div className={style["bot-container"]}>
-          <div
-            style={{
-              color: "white",
-              float: "right",
-              margin: "10px 10px 0 0",
-            }}
-            onClick={handleMinimize}
-          >
-            <div className={style["minimize"]} id="bot-minimize-btn">
-              <div className={style["minimizebutton"]}>&ndash;</div>
-            </div>
-          </div>
           {microphonePermitted ? (
             <>
               <div className={style["bot-header"]}>
