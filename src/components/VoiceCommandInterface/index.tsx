@@ -111,6 +111,16 @@ export default function VoiceCommandInterface(): ReactElement {
       waveRef.current.style.webkitTransform = `scale(${scale},${scale})`;
   }
 
+  function setMicrophonePermissionState() {
+    navigator.permissions
+      .query({ name: "microphone" })
+      .then((permissonStatus) => {
+        permissonStatus.state === "denied"
+          ? setMicrophonePermitted(false)
+          : setMicrophonePermitted(true);
+      });
+  }
+
   React.useEffect((): void => {
     Recognition.onaudiostart = function () {
       setSpeechText(<ListeningAnimation />);
@@ -144,6 +154,8 @@ export default function VoiceCommandInterface(): ReactElement {
         setSpeechText(<>{event.error}</>);
       }
     };
+
+    setMicrophonePermissionState();
   }, []);
 
   return (
