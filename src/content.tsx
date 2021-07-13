@@ -31,19 +31,10 @@ const app = document.createElement("div");
 const dragButton = document.createElement("div");
 const minimizeButton = document.createElement("div");
 const container = document.createElement("div");
-const opacitySlider = document.createElement("input");
 
 app.id = "my-extension-root";
 minimizeButton.id = "minimize-button";
 container.classList.add("container");
-
-opacitySlider.id = "opacity-slider";
-opacitySlider.type = "range";
-opacitySlider.min = "0.5";
-opacitySlider.max = "1";
-opacitySlider.step = "0.01";
-opacitySlider.value = "1";
-opacitySlider.classList.add("voicebot-slider");
 
 dragButton.id = "drag-button";
 dragButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
@@ -58,7 +49,6 @@ style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-w
 app.appendChild(dragButton);
 app.appendChild(minimizeButton);
 app.appendChild(container);
-app.appendChild(opacitySlider);
 
 document.body.appendChild(app);
 
@@ -94,17 +84,9 @@ function dragElement(elem: HTMLElement, button: HTMLElement) {
   function dragMouseDown(e: MouseEvent) {
     e = e || window.event;
     e.preventDefault();
-
-    app.style.opacity = "0.1";
     document.body.classList.toggle("grabbing-cursor");
 
     document.onmouseup = closeDragElement; // Register onMouseUp only when MouseDown
-    document.onmousemove = elementDrag; // For tracking pointer registered  MouseMove
-  }
-
-  function elementDrag(e: MouseEvent) {
-    e = e || window.event;
-    e.preventDefault();
   }
 
   // When MouseDown
@@ -112,7 +94,6 @@ function dragElement(elem: HTMLElement, button: HTMLElement) {
     elem.style.top = e.clientY - 29 + "px";
     elem.style.left = e.clientX - 39 + "px";
 
-    app.style.opacity = opacitySlider.value;
     document.body.classList.toggle("grabbing-cursor");
 
     document.onmouseup = null; // clear MouseUp so we can again Register MouseDown
@@ -125,8 +106,3 @@ minimizeButton.onclick = handleMinimize;
 function handleMinimize() {
   app.style.display = "none";
 }
-
-opacitySlider.addEventListener("input", () => {
-  const opacity = opacitySlider.value;
-  app.style.opacity = opacity;
-});
