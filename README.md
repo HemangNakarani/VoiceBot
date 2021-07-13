@@ -45,3 +45,5 @@ For development mode, you can use live server using `npm run dev`
 - **Set Date** - You can also set date range using VoiceBot.
 
 - **Clean, intutive design** - VoiceBot has a clean and easy to use design. It also has a responsive design which allows you to place it anywhere on the website.
+
+- **Omnibox** - Use features of VoiceBot through Omnibox.
