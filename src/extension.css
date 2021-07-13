@@ -26,6 +26,7 @@ body {
   border-radius: 1em;
   position: absolute;
   display: flex;
+  opacity: "1";
 }
 
 #my-extension-root.border {
@@ -49,7 +50,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  opacity: 1;
 }
 
 #minimize-button {
@@ -64,39 +64,12 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  opacity: 1;
 }
 
 #my-extension-root iframe {
   width: 100%;
   height: 100%;
   border: none;
-}
-
-#opacity-slider {
-  position: absolute;
-  margin-top: 2em;
-  left: 7em;
-}
-
-.voicebot-slider {
-  -webkit-appearance: none;
-  height: 1px;
-  background: #d3d3d3;
-  -webkit-transition: 0.2s;
-  transition: opacity 0.2s;
-}
-
-.voicebot-slider::-webkit-slider-thumb {
-  box-shadow: none;
-  border: 0px solid #ffffff;
-  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.25);
-  height: 20px;
-  width: 10px;
-  border-radius: 3em;
-  background: white;
-  cursor: pointer;
-  -webkit-appearance: none;
 }
 
 body.grabbing-cursor * {
