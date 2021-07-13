@@ -6,40 +6,42 @@ VoiceBot is a voice assistant for the Sprinklr platform.
 </p>
 </div>
 
-Getting Started
----------------
+## Getting Started
+
 ## Installation
+
 1. Clone the repository
-`git clone https://github.com/HemangNakarani/VoiceBot/tree/Extension`
+   `git clone https://github.com/HemangNakarani/VoiceBot/tree/Extension`
 
 2. Install NPM Packages
-`npm install`
+   `npm install`
 
 3. Run `npm run build`
 
 4. Load your extension on Chrome following:
-  1. Acess `chrome://extensions`
-  2. Check `Developer Mode`
-  3. Click on `Load unpacked extension`
-  4. Select the `build` folder
+5. Acess `chrome://extensions`
+6. Check `Developer Mode`
+7. Click on `Load unpacked extension`
+8. Select the `build` folder
 
 ## Webpack auto-reload
+
 To make workflow much more efficient this project uses webpack server for development with auto reload feature that reloads the browser automatically every time you make changes in the project.
 
 You can run the dev mode like this:
 `npm run dev`
 For development mode, you can use live server using `npm run dev`
 
-Features
-----------
-* **Navigate** - With VoiceBot, you can navigate Sprinklr platform and open modules like Editorial Calendar, Asset Manager, Ads Manager and Care Console .You can also open this module with some filters.
+## Features
 
-* **Set Filters** - You can set filters on module with just a voice commands. 
+- **Navigate** - With VoiceBot, you can navigate Sprinklr platform and open modules like Editorial Calendar, Asset Manager, Ads Manager and Care Console .You can also open this module with some filters.
 
-* **Search** - You can search in platform or the module depending on your.
+- **Set Filters** - You can set filters on module with just a voice commands.
 
-* **Open Modal** - Voiceot allows you to open modal present in the respective module.
+- **Search** - You can search in platform or the module depending on your.
 
-* **Set Date** - You can also set date range using VoiceBot.
+- **Open Modal** - Voiceot allows you to open modal present in the respective module.
 
-* **Clean, intutive design** - VoiceBot has a clean and easy to use design. It also has a responsive deisgn which allows you to place it anywhere on the website.
+- **Set Date** - You can also set date range using VoiceBot.
+
+- **Clean, intutive design** - VoiceBot has a clean and easy to use design. It also has a responsive design which allows you to place it anywhere on the website.
