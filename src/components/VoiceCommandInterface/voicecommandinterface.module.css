@@ -19,6 +19,7 @@
 }
 
 .bot-header {
+  margin-top: 2em;
   padding: 28px 28px 0px;
 }
 
@@ -63,7 +64,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 5em;
+  margin-top: 3em;
   overflow: hidden;
   height: 250px;
 }
@@ -90,19 +91,4 @@
   opacity: 0.7;
   min-width: 8em;
   min-height: 8em;
-}
-
-.minimize {
-  background-color: gray;
-  opacity: 0.5;
-  font-size: 1em;
-  line-height: 0.75em;
-  width: 1.25em;
-  height: 1.25em;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: 1000;
-  cursor: pointer;
 }
