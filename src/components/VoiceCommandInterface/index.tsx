@@ -17,13 +17,25 @@ export enum SpeechStateEnum {
   loading = "Loading...",
 }
 
+let audioStream: MediaStream | null = null;
+let timeInterval: NodeJS.Timeout | null = null;
+
 export default function VoiceCommandInterface(): ReactElement {
+  // To show the speech State
   const [speechState, setSpeechState] = React.useState<SpeechStateEnum>(
     SpeechStateEnum.idle
   );
 
+  // To manipulate waves animation when user speaks
+  const waveRef = React.useRef<HTMLDivElement>(null);
+
+  // To show what user said
   const [speechText, setSpeechText] = React.useState<ReactElement>();
+
+  // To show Permission screen when user has not granted permission
   const [microphonePermitted, setMicrophonePermitted] = React.useState(true);
+
+  // Redirecting based on command extracted from user's speech
   async function handleCommand(command: String) {
     setSpeechState(SpeechStateEnum.loading);
 
@@ -48,10 +60,62 @@ export default function VoiceCommandInterface(): ReactElement {
     });
   }
 
+  function startAudioStream() {
+    navigator.mediaDevices
+      .getUserMedia({ audio: true })
+      .then(function (stream) {
+        audioStream = stream;
+
+        const audioContext = new AudioContext();
+        const audioSource = audioContext.createMediaStreamSource(stream);
+        const analyser = audioContext.createAnalyser();
+
+        analyser.fftSize = 1024;
+        analyser.smoothingTimeConstant = 0.8;
+        audioSource.connect(analyser);
+
+        const volumes = new Uint8Array(analyser.frequencyBinCount);
+        const volumeCallBack = () => {
+          analyser.getByteFrequencyData(volumes);
+          let volumeSum = volumes.reduce((prev, curr) => curr + prev, 0);
+
+          const averageVolume = volumeSum / volumes.length;
+          volumeIndicator(averageVolume);
+        };
+
+        timeInterval = setInterval(volumeCallBack, 10);
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
+  }
+
+  function stopAudioStream() {
+    //stop all all tracks of audioStream
+    if (audioStream !== null)
+      audioStream.getTracks().forEach((track) => track.stop());
+
+    // clear interval if not null
+    if (timeInterval !== null) {
+      clearInterval(timeInterval);
+    }
+
+    // clear VolumeIndicator
+    volumeIndicator(0);
+  }
+
+  function volumeIndicator(volume: number) {
+    let scale = volume / 25;
+
+    if (waveRef.current !== null)
+      waveRef.current.style.webkitTransform = `scale(${scale},${scale})`;
+  }
+
   React.useEffect((): void => {
     Recognition.onaudiostart = function () {
       setSpeechText(<ListeningAnimation />);
       handleStateChange(SpeechStateEnum.listening);
+      startAudioStream();
     };
 
     Recognition.onresult = function (event: any) {
@@ -64,10 +128,12 @@ export default function VoiceCommandInterface(): ReactElement {
     Recognition.onspeechend = function () {
       Recognition.stop();
       handleStateChange(SpeechStateEnum.idle);
+      stopAudioStream();
     };
 
     Recognition.onerror = function (event: SpeechRecognitionErrorEvent) {
       handleStateChange(SpeechStateEnum.idle);
+      stopAudioStream();
       if (event.error === "not-allowed") {
         setMicrophonePermitted(false);
       }
@@ -108,22 +174,13 @@ export default function VoiceCommandInterface(): ReactElement {
                 <span>{speechState}</span>
               </h1>
               <div className={style["bot-recognised-text"]}>
-                <span>
-                  {speechState === SpeechStateEnum.idle ? "..." : speechText}
-                </span>
+                <span>{speechText}</span>
               </div>
 
               <div></div>
 
               <div className={style["bot-mic-container"]}>
-                <div
-                  id="bot-volume-wave"
-                  className={
-                    speechState === SpeechStateEnum.listening
-                      ? style["bot-mic-wave"]
-                      : ""
-                  }
-                ></div>
+                <div ref={waveRef} className={style["bot-mic-wave"]}></div>
                 <div
                   className={style["bot-mic-circle"]}
                   onClick={(): void => {

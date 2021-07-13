@@ -41,7 +41,6 @@ export default async function digitalAssetManagement({
   }
 
   if (parameters["Asset-SmartImageTags"].listValue.values.length !== 0) {
-    console.log(parameters["Asset-SmartImageTags"].listValue.values);
     let smartTagsPopup = await checkElement(
       `[data-entityid="undefined-filter-summary"]`
     );
@@ -135,7 +134,6 @@ async function setFilterSmartTags(
 
 async function setFilter(statusArray: { kind: string; stringValue: string }[]) {
   let list = await checkElements(".popoverWithTwistyContainer li");
-  console.log(list);
 
   list.forEach((listItem) => {
     let arr = statusArray.filter(
