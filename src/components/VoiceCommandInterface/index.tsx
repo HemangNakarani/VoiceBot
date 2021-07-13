@@ -30,7 +30,7 @@ export default function VoiceCommandInterface(): ReactElement {
   const waveRef = React.useRef<HTMLDivElement>(null);
 
   // To show what user said
-  const [speechText, setSpeechText] = React.useState<ReactElement>();
+  const [speechText, setSpeechText] = React.useState("");
 
   // To show Permission screen when user has not granted permission
   const [microphonePermitted, setMicrophonePermitted] = React.useState(true);
@@ -72,6 +72,8 @@ export default function VoiceCommandInterface(): ReactElement {
 
         analyser.fftSize = 1024;
         analyser.smoothingTimeConstant = 0.8;
+        analyser.minDecibels = -90;
+        analyser.maxDecibels = 0;
         audioSource.connect(analyser);
 
         const volumes = new Uint8Array(analyser.frequencyBinCount);
@@ -105,7 +107,8 @@ export default function VoiceCommandInterface(): ReactElement {
   }
 
   function volumeIndicator(volume: number) {
-    let scale = volume / 25;
+    let scale = Math.abs(volume) / 5;
+    scale = Math.min(3, scale);
 
     if (waveRef.current !== null)
       waveRef.current.style.webkitTransform = `scale(${scale},${scale})`;
@@ -123,15 +126,14 @@ export default function VoiceCommandInterface(): ReactElement {
 
   React.useEffect((): void => {
     Recognition.onaudiostart = function () {
-      setSpeechText(<ListeningAnimation />);
       handleStateChange(SpeechStateEnum.listening);
       startAudioStream();
     };
 
     Recognition.onresult = function (event: any) {
       var last = event.results.length - 1;
-      var command: String = event.results[last][0].transcript;
-      setSpeechText(<>{command}</>);
+      var command: string = event.results[last][0].transcript;
+      setSpeechText(command);
       handleCommand(command);
     };
 
@@ -149,9 +151,9 @@ export default function VoiceCommandInterface(): ReactElement {
       }
       // condition for no-speech error
       else if (event.error === "no-speech") {
-        setSpeechText(<>{"No Speech Recognised !!"}</>);
+        setSpeechText("No Speech Recognised !!");
       } else {
-        setSpeechText(<>{event.error}</>);
+        setSpeechText(event.error);
       }
     };
 
@@ -186,7 +188,11 @@ export default function VoiceCommandInterface(): ReactElement {
                 <span>{speechState}</span>
               </h1>
               <div className={style["bot-recognised-text"]}>
-                <span>{speechText}</span>
+                {speechState === SpeechStateEnum.listening ? (
+                  <ListeningAnimation />
+                ) : (
+                  <span>{speechText}</span>
+                )}
               </div>
 
               <div></div>
