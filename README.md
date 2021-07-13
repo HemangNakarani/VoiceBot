@@ -1,9 +1,5 @@
 <div align="center">
-<img src="https://github.com/HemangNakarani/VoiceBot/blob/Extension/public/assets/VoiceBot-git.png" width="150">
-<p align="center">VoiceBot</p>
-<p align="center">
-VoiceBot is a voice assistant for the Sprinklr platform. 
-</p>
+<img src="https://github.com/HemangNakarani/VoiceBot/blob/Extension/src/assets/VoiceBot-git.png" width="350">
 </div>
 
 ## Getting Started
