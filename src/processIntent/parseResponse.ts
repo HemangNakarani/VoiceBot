@@ -154,10 +154,10 @@ export default function parseResponse(response: any) {
 
     case AdsIntent.SetPeriod: {
       const parameters = response.parameters.fields;
-      const datePeriod = parameters["date-period"].structValue;
-      const startDate = new Date(datePeriod.fields.startDate.stringValue);
-      const endDate = new Date(datePeriod.fields.endDate.stringValue);
-      AdsManager.SetPeriod(startDate, endDate);
+
+      const datePeriod = parameters["date-period"]
+      const date = parameters["date-time"]
+      AdsManager.SetPeriod(datePeriod, date);
       break;
     }
 
@@ -221,7 +221,6 @@ export default function parseResponse(response: any) {
 
     case EditorialIntent.SetView: {
       const parameters = response.parameters.fields;
-      console.log(parameters);
       const calendarContent: Array<valueInterface> =
         parameters["calendar-content"].listValue.values;
       EditorialCalendar.SetView(calendarContent);

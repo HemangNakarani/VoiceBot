@@ -8,7 +8,7 @@ export default function open(entity:string){
             break;
         
         case "Strategy Group":
-            url = 'https://champagne.sprinklr.com/advertising/manager'
+            url = 'https://champagne.sprinklr.com/advertising/manager/strategyGroup'
             break;
             
         case "Campaigns":
