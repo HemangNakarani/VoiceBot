@@ -22,53 +22,41 @@ export default async function DashboardAction(params: any) {
 
   switch (action) {
     case "add": {
-      let addButton = document.querySelector(
-        `[aria-label="Add Dashboard"]`
-      ) as HTMLElement;
+      let addButton = await checkElement(`[aria-label="Add Dashboard"]`);
       if (addButton) addButton.click();
       break;
     }
 
     case "share": {
-      let shareButton = document.querySelector(
-        `[aria-label="Share Dashboard"]`
-      ) as HTMLElement;
+      let shareButton = await checkElement(`[aria-label="Share Dashboard"]`);
       if (shareButton) shareButton.click();
 
       break;
     }
 
     case "edit": {
-      let editButton = document.querySelector(
-        `[aria-label="Edit Dashboard"]`
-      ) as HTMLElement;
+      let editButton = await checkElement(`[aria-label="Edit Dashboard"]`);
       if (editButton) editButton.click();
 
       break;
     }
 
     case "clone": {
-      let cloneButton = document.querySelector(
-        `[aria-label="Clone Dashboard"]`
-      ) as HTMLElement;
+      let cloneButton = await checkElement(`[aria-label="Clone Dashboard"]`);
       if (cloneButton) cloneButton.click();
 
       break;
     }
 
     case "lock": {
-      let lockButton = document.querySelector(
-        `[aria-label="Lock Dashboard"]`
-      ) as HTMLElement;
+      let lockButton = await checkElement(`[aria-label="Lock Dashboard"]`);
       if (lockButton) lockButton.click();
 
       break;
     }
 
     case "activity": {
-      let activityButton = document.querySelector(
-        `[aria-label="Activity"]`
-      ) as HTMLElement;
+      let activityButton = await checkElement(`[aria-label="Activity"]`);
       if (activityButton) activityButton.click();
 
       break;

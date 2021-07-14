@@ -1,4 +1,4 @@
-import { addDelay } from "../../utils/utilities";
+import { addDelay, checkElement } from "../../utils/utilities";
 
 export default async function ColumnActions(params: any) {
   let optionMenuButton = document.querySelector(
@@ -14,56 +14,45 @@ export default async function ColumnActions(params: any) {
   await addDelay(100);
 
   let action: string = params["agentconsole-columnactions"].stringValue;
+  console.log(action);
 
   switch (action) {
     case "export": {
-      let exportButton = document.querySelector(
-        `[data-id="EXPORT"]`
-      ) as HTMLElement;
+      let exportButton = await checkElement(`[data-id="EXPORT"]`);
       if (exportButton) exportButton.click();
       break;
     }
 
     case "lock": {
-      let lockButton = document.querySelector(
-        `[data-id="LOCK"]`
-      ) as HTMLElement;
+      let lockButton = await checkElement(`[data-id="LOCK"]`);
       if (lockButton) lockButton.click();
 
       break;
     }
 
     case "edit": {
-      let editButton = document.querySelector(
-        `[data-id="EDIT"]`
-      ) as HTMLElement;
+      let editButton = await checkElement(`[data-id="EDIT"]`);
       if (editButton) editButton.click();
 
       break;
     }
 
     case "clone": {
-      let cloneButton = document.querySelector(
-        `[data-id="CLONE"]`
-      ) as HTMLElement;
+      let cloneButton = await checkElement(`[data-id="CLONE"]`);
       if (cloneButton) cloneButton.click();
 
       break;
     }
 
     case "delete": {
-      let deleteButton = document.querySelector(
-        `[data-id="REMOVE"]`
-      ) as HTMLElement;
+      let deleteButton = await checkElement(`[data-id="REMOVE"]`);
       if (deleteButton) deleteButton.click();
 
       break;
     }
 
     case "sort": {
-      let sortButton = document.querySelector(
-        `[data-id="SORT"]`
-      ) as HTMLElement;
+      let sortButton = await checkElement(`[data-id="SORT"]`);
       if (sortButton) sortButton.click();
 
       break;
