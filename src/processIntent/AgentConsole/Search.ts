@@ -1,4 +1,4 @@
-import { addDelay, checkElement } from "../../utils/utilities";
+import {  checkElement } from "../../utils/utilities";
 
 export default async function Search(
   query: string,
