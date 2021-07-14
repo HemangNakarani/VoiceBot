@@ -49,6 +49,7 @@ style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-w
 app.appendChild(dragButton);
 app.appendChild(minimizeButton);
 app.appendChild(container);
+app.style.display = "none";
 
 document.body.appendChild(app);
 
@@ -84,7 +85,7 @@ function dragElement(elem: HTMLElement, button: HTMLElement) {
   function dragMouseDown(e: MouseEvent) {
     e = e || window.event;
     e.preventDefault();
-    document.body.classList.toggle("grabbing-cursor");
+    document.body.classList.add("grabbing-cursor");
 
     document.onmouseup = closeDragElement; // Register onMouseUp only when MouseDown
   }
@@ -94,10 +95,9 @@ function dragElement(elem: HTMLElement, button: HTMLElement) {
     elem.style.top = e.clientY - 29 + "px";
     elem.style.left = e.clientX - 39 + "px";
 
-    document.body.classList.toggle("grabbing-cursor");
+    document.body.classList.remove("grabbing-cursor");
 
     document.onmouseup = null; // clear MouseUp so we can again Register MouseDown
-    document.onmousemove = null; // No need to track pointer
   }
 }
 

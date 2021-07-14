@@ -1,9 +1,5 @@
 <div align="center">
-<img src="https://github.com/HemangNakarani/VoiceBot/blob/Extension/public/assets/icon.png" width="150">
-<p align="center">VoiceBot</p>
-<p align="center">
-VoiceBot is a voice assistant for the Sprinklr platform. 
-</p>
+<img src="https://github.com/HemangNakarani/VoiceBot/blob/Extension/src/assets/VoiceBot-git.png" width="350">
 </div>
 
 ## Getting Started
@@ -19,10 +15,10 @@ VoiceBot is a voice assistant for the Sprinklr platform.
 3. Run `npm run build`
 
 4. Load your extension on Chrome following:
-5. Acess `chrome://extensions`
-6. Check `Developer Mode`
-7. Click on `Load unpacked extension`
-8. Select the `build` folder
+    1. In Chrome, go to `chrome://extensions`
+    2. Check `Developer Mode`
+    3. Click on `Load unpacked extension`
+    4. Select the `dist` folder
 
 ## Webpack auto-reload
 
@@ -45,3 +41,5 @@ For development mode, you can use live server using `npm run dev`
 - **Set Date** - You can also set date range using VoiceBot.
 
 - **Clean, intutive design** - VoiceBot has a clean and easy to use design. It also has a responsive design which allows you to place it anywhere on the website.
+
+- **Omnibox** - Use features of VoiceBot through Omnibox.
