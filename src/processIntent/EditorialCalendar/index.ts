@@ -11,10 +11,11 @@ export enum Intents {
 
 }
 
-export default{
+const Functions = {
     Open,
     SetDate,
     SetPeriod,
-
 }
+
+export default Functions;
   

@@ -1,13 +1,12 @@
-import Open from './Open'
+import Open from './Open';
 
 
 export enum Intents {
-    Open = "AdsManager.Open",
-
+    Open = "Marketing.Asset",
 }
 
 const Functions = {
-    Open,
+    Open
 }
 
 export default Functions;
