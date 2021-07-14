@@ -124,19 +124,12 @@
 .bot-mic-wave {
   border-radius: 50%;
   background-color: aliceblue;
-  opacity: 0.7;
-  min-width: 7em;
-  min-height: 7em;
+  opacity: 1;
+  min-width: 70px;
+  min-height: 70px;
+  transition: transform 100ms ease-in-out;
 }
 
-.bot-outer-wave {
-  position: absolute;
-  border-radius: 50%;
-  background-color: #f7f7f9;
-  opacity: 0.3;
-  min-width: 10em;
-  min-height: 10em;
-}
 
 @media (max-width: 1023px) {
   .bot-listening-heading {
