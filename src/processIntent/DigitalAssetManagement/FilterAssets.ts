@@ -1,11 +1,15 @@
 import {
-  addDelay,
-  checkElement,
-  checkElements,
   convertTimeZone,
   dateInddMMMyyyyFormat,
   timeIn12HrFormat,
 } from "../../utils/utilities";
+
+import {
+  didComponentMount,
+  scrollList,
+  didComponentsMount,
+  addDelay,
+} from "voicebot-dommer";
 
 type Props = {
   parameters: any;
@@ -18,10 +22,10 @@ export default async function digitalAssetManagement({
 }: Props) {
   switch (actionType) {
     case "new": {
-      let newTabButton = await checkElement(`[data-action="TAB_ADD_NEW"]`);
+      let newTabButton = await didComponentMount(`[data-action="TAB_ADD_NEW"]`);
       newTabButton.click();
 
-      let openDigitalAssetsManagerButton = await checkElement(
+      let openDigitalAssetsManagerButton = await didComponentMount(
         `[data-entity="DIGITAL_ASSET_MANAGEMENT"]`
       );
 
@@ -41,7 +45,7 @@ export default async function digitalAssetManagement({
   }
 
   if (parameters["Asset-SmartImageTags"].listValue.values.length !== 0) {
-    let smartTagsPopup = await checkElement(
+    let smartTagsPopup = await didComponentMount(
       `[data-entityid="undefined-filter-summary"]`
     );
     smartTagsPopup.click();
@@ -52,12 +56,12 @@ export default async function digitalAssetManagement({
 
   if (parameters["Asset-Status"].listValue.values.length !== 0) {
     await addDelay(1000);
-    let statusPopup = await checkElement(
+    let statusPopup = await didComponentMount(
       `[data-entityid="STATUS-filter-summary"]`
     );
     statusPopup.click();
     await setFilter(parameters["Asset-Status"].listValue.values);
-    let newStatusPopup = await checkElement(
+    let newStatusPopup = await didComponentMount(
       `[data-entityid="STATUS-filter-summary"]`
     );
     newStatusPopup.click();
@@ -65,12 +69,12 @@ export default async function digitalAssetManagement({
 
   if (parameters["Asset-Type"].listValue.values.length !== 0) {
     await addDelay(1000);
-    let typePopup = await checkElement(
+    let typePopup = await didComponentMount(
       `[data-entityid="ASSET_TYPE-filter-summary"]`
     );
     typePopup.click();
     await setFilter(parameters["Asset-Type"].listValue.values);
-    let newtypePopup = await checkElement(
+    let newtypePopup = await didComponentMount(
       `[data-entityid="ASSET_TYPE-filter-summary"]`
     );
     newtypePopup.click();
@@ -97,45 +101,33 @@ export default async function digitalAssetManagement({
 async function setFilterSmartTags(
   statusArray: { kind: string; stringValue: string }[]
 ) {
-  let listContainer = await checkElement(
-    ".ReactVirtualized__Grid.ReactVirtualized__List._2jiM"
+  await scrollList(
+    ".ReactVirtualized__Grid.ReactVirtualized__List._2jiM",
+    "li",
+    100,
+    (listElement) => {
+      let arr = statusArray.filter(
+        (item) =>
+          item.stringValue.toLowerCase() ===
+          listElement.querySelector("p")?.textContent?.toLowerCase()
+      );
+      if (arr.length !== 0) {
+        listElement.querySelector(`input`)?.click();
+      }
+      return false;
+    }
   );
-  let listnode = listContainer.querySelector("li") as HTMLElement;
-  let currentScroll = 0;
 
-  while (
-    currentScroll <
-    listContainer.scrollHeight - listContainer.clientHeight
-  ) {
-    let arr = statusArray.filter(
-      (item) =>
-        item.stringValue.toLowerCase() ===
-        listnode.querySelector("p")?.textContent?.toLowerCase()
-    );
-    if (arr.length !== 0) {
-      listnode.querySelector(`input`)?.click();
-    }
-
-    if (listnode.nextSibling) listnode = listnode.nextSibling as HTMLElement;
-    else {
-      currentScroll += listContainer.clientHeight;
-      listContainer.scrollTop = currentScroll;
-
-      await addDelay(100);
-      if (listnode.nextSibling) listnode = listnode.nextSibling as HTMLElement;
-    }
-  }
-
-  let applyFilterBtn = await checkElement(`[data-entityid="applyFilterBtn"]`);
+  let applyFilterBtn = await didComponentMount(
+    `[data-entityid="applyFilterBtn"]`
+  );
   applyFilterBtn.click();
 
   return true;
 }
 
 async function setFilter(statusArray: { kind: string; stringValue: string }[]) {
-  let list = await checkElements(".popoverWithTwistyContainer li");
-
-  list.forEach((listItem) => {
+  await scrollList(".popoverWithTwistyContainer", "li", 100, (listItem) => {
     let arr = statusArray.filter(
       (item) =>
         item.stringValue.toLowerCase() ===
@@ -145,8 +137,8 @@ async function setFilter(statusArray: { kind: string; stringValue: string }[]) {
       console.log("Found");
       listItem.querySelector(`input`)?.click();
     }
+    return false;
   });
-
   return true;
 }
 
@@ -160,7 +152,7 @@ async function setDateRange(startDate: Date, endDate: Date) {
     bubbles: true,
   });
 
-  let inputs = (await checkElements(
+  let inputs = (await didComponentsMount(
     `[data-baseweb="popover"] input`
   )) as HTMLInputElement[];
 

@@ -1,4 +1,4 @@
-import { addDelay, checkElement } from "../../utils/utilities";
+import { scrollList } from "voicebot-dommer";
 
 export default async function sortAssets(sortBy: string, order: string) {
   // Condition to Process Sorting Order
@@ -29,33 +29,13 @@ export default async function sortAssets(sortBy: string, order: string) {
 
 // Function to scroll and process each element in List
 async function selectSortKey(sortBy: string) {
-  let listContainer = await checkElement(`ul[data-spaceweb="list"]`);
-  let listnode = listContainer.querySelector("li") as HTMLElement;
-
-  let currentScroll = 0;
-
-  while (
-    currentScroll <
-    listContainer.scrollHeight - listContainer.clientHeight
-  ) {
+  await scrollList(`ul[data-spaceweb="list"]`, "li", 0, (listnode) => {
     if (sortBy.toLowerCase() === listnode.textContent?.toLowerCase()) {
       listnode.click();
-      break;
+      return true;
     }
-
-    // if couldn't find next sibling it means we need to scroll.
-    if (listnode.nextSibling) listnode = listnode.nextSibling as HTMLElement;
-    else {
-      // scrollTop increare with visible height of container
-      currentScroll += listContainer.clientHeight;
-      listContainer.scrollTop = currentScroll;
-
-      // delay added to wait for new elements to load into the DOM
-      await addDelay(100);
-
-      if (listnode.nextSibling) listnode = listnode.nextSibling as HTMLElement;
-    }
-  }
+    return false;
+  });
 
   return true;
 }
