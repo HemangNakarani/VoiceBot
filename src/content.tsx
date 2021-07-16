@@ -40,7 +40,7 @@ const switchBot = document.createElement("div");
 
 app.id = "my-extension-root";
 minimizeButton.id = "minimize-button";
-container.classList.add("container");
+container.classList.add("voicebot-container");
 
 switchBot.id = "switch-bot";
 switchBot.innerHTML = `<img src=${Microphone} alt="Enable"/>`;
@@ -115,8 +115,4 @@ function dragElement(elem: HTMLElement, button: HTMLElement) {
 
 // For Minimizing Injected Component
 switchBot.onclick = toggle;
-minimizeButton.onclick = handleMinimize;
-
-function handleMinimize() {
-  app.style.display = "none";
-}
+minimizeButton.onclick = toggle;
