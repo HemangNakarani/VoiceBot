@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.setInput = exports.didComponentsMount = exports.didChildComponentMount = exports.didComponentMount = void 0;
+exports.scrollList = exports.addDelay = exports.setInput = exports.didComponentsMount = exports.didChildComponentMount = exports.didComponentMount = void 0;
 function requestAnimationFrameAsync() {
     return new Promise(function (resolve) {
         requestAnimationFrame(resolve);
@@ -114,3 +114,54 @@ function setInput(input, value) {
     input.dispatchEvent(event);
 }
 exports.setInput = setInput;
+function addDelay(seconds) {
+    return new Promise(function (resolve) {
+        setTimeout(function () {
+            resolve(true);
+        }, seconds);
+    });
+}
+exports.addDelay = addDelay;
+function scrollList(scrollableContainerSelectorString, listelementSelectorString, delayInMillisecondsAfterScroll, callback) {
+    return __awaiter(this, void 0, void 0, function () {
+        var scrollableContainer, scrollableContainerHeight, scrollableContainerScrollHeight, scrollableContainerScrollTopMax, currentScroll, canEnter, listnode, shouldBreak;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, didComponentMount(scrollableContainerSelectorString)];
+                case 1:
+                    scrollableContainer = _a.sent();
+                    scrollableContainerHeight = scrollableContainer.clientHeight;
+                    scrollableContainerScrollHeight = scrollableContainer.scrollHeight;
+                    scrollableContainerScrollTopMax = scrollableContainerScrollHeight - scrollableContainerHeight;
+                    currentScroll = 0;
+                    canEnter = true;
+                    listnode = scrollableContainer.querySelector(listelementSelectorString);
+                    _a.label = 2;
+                case 2:
+                    if (!(scrollableContainer.scrollTop < scrollableContainerScrollTopMax ||
+                        canEnter === true)) return [3 /*break*/, 6];
+                    shouldBreak = callback(listnode);
+                    if (shouldBreak) {
+                        return [3 /*break*/, 6];
+                    }
+                    if (!listnode.nextSibling) return [3 /*break*/, 3];
+                    listnode = listnode.nextSibling;
+                    return [3 /*break*/, 5];
+                case 3:
+                    currentScroll = scrollableContainer.scrollTop + scrollableContainerHeight;
+                    scrollableContainer.scrollTop = currentScroll;
+                    canEnter = false;
+                    return [4 /*yield*/, addDelay(delayInMillisecondsAfterScroll)];
+                case 4:
+                    _a.sent();
+                    if (listnode.nextSibling) {
+                        listnode = listnode.nextSibling;
+                    }
+                    _a.label = 5;
+                case 5: return [3 /*break*/, 2];
+                case 6: return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.scrollList = scrollList;
