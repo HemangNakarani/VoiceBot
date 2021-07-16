@@ -2,6 +2,11 @@ import React, { ReactElement } from "react";
 import ReactDOM from "react-dom";
 import Frame, { FrameContextConsumer } from "react-frame-component";
 import App from "./App";
+import MicrophoneIcon from "./assets/Microphone.svg";
+import ChevronIcon from "./assets/Chevron.svg";
+
+let Microphone = chrome.runtime.getURL(MicrophoneIcon);
+let Chevron = chrome.runtime.getURL(ChevronIcon);
 
 const Main = (): ReactElement => {
   return (
@@ -31,10 +36,14 @@ const app = document.createElement("div");
 const dragButton = document.createElement("div");
 const minimizeButton = document.createElement("div");
 const container = document.createElement("div");
+const switchBot = document.createElement("div");
 
 app.id = "my-extension-root";
 minimizeButton.id = "minimize-button";
 container.classList.add("container");
+
+switchBot.id = "switch-bot";
+switchBot.innerHTML = `<img src=${Microphone} alt="Enable"/>`;
 
 dragButton.id = "drag-button";
 dragButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
@@ -52,12 +61,14 @@ app.appendChild(container);
 app.style.display = "none";
 
 document.body.appendChild(app);
+document.body.appendChild(switchBot);
 
 ReactDOM.render(<Main />, container);
 
 function toggle() {
   if (app.style.display === "none") {
     app.style.display = "flex";
+    switchBot.innerHTML = `<img src=${Chevron} alt="Enable"/>`;
     // Reset
     app.style.top = "";
     app.style.left = "";
@@ -65,6 +76,7 @@ function toggle() {
     app.style.right = "0";
   } else {
     app.style.display = "none";
+    switchBot.innerHTML = `<img src=${Microphone} alt="Enable"/>`;
   }
 }
 
@@ -102,7 +114,9 @@ function dragElement(elem: HTMLElement, button: HTMLElement) {
 }
 
 // For Minimizing Injected Component
+switchBot.onclick = toggle;
 minimizeButton.onclick = handleMinimize;
+
 function handleMinimize() {
   app.style.display = "none";
 }
