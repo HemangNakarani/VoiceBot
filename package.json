@@ -1,0 +1,13 @@
+{
+  "name": "dom-man-bot",
+  "version": "1.0.0",
+  "description": "Used to manipulate DOM ",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build":"tsc",
+    "prepare":"npm run build"
+  },
+  "author": "Aakash and Hemang",
+  "license": "ISC"
+}
