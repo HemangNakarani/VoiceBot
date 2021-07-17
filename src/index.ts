@@ -55,6 +55,7 @@ export function addDelay(seconds: number) {
 export async function scrollList(
   scrollableContainerSelectorString: string,
   listelementSelectorString: string,
+  waitForFirstElementSelectorString: string,
   delayInMillisecondsAfterScroll: number,
   callback: (listElement: HTMLElement) => boolean
 ) {
@@ -62,23 +63,31 @@ export async function scrollList(
     scrollableContainerSelectorString
   );
   let scrollableContainerHeight = scrollableContainer.clientHeight;
-  let scrollableContainerScrollHeight = scrollableContainer.scrollHeight;
-  let scrollableContainerScrollTopMax =
-    scrollableContainerScrollHeight - scrollableContainerHeight;
   let currentScroll = 0;
   let canEnter = true;
 
-  let listnode = scrollableContainer.querySelector(
+  await didChildComponentMount(
+    scrollableContainer,
+    waitForFirstElementSelectorString
+  );
+
+  let listnode = await didChildComponentMount(
+    scrollableContainer,
     listelementSelectorString
-  ) as HTMLElement;
+  );
+  let prevNode = null;
 
   while (
-    scrollableContainer.scrollTop < scrollableContainerScrollTopMax ||
+    scrollableContainer.scrollTop <
+      scrollableContainer.scrollHeight - scrollableContainer.clientHeight ||
     canEnter === true
   ) {
-    let shouldBreak = callback(listnode);
-    if (shouldBreak) {
-      break;
+    if (prevNode != listnode) {
+      let shouldBreak = callback(listnode);
+      if (shouldBreak) {
+        break;
+      }
+      prevNode = listnode;
     }
 
     if (listnode.nextSibling) {

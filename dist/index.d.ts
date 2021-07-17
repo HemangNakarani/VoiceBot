@@ -3,4 +3,4 @@ export declare function didChildComponentMount(selectorElement: HTMLElement, sel
 export declare function didComponentsMount(selector: string): Promise<HTMLElement[]>;
 export declare function setInput(input: HTMLInputElement, value: string): void;
 export declare function addDelay(seconds: number): Promise<unknown>;
-export declare function scrollList(scrollableContainerSelectorString: string, listelementSelectorString: string, delayInMillisecondsAfterScroll: number, callback: (listElement: HTMLElement) => boolean): Promise<void>;
+export declare function scrollList(scrollableContainerSelectorString: string, listelementSelectorString: string, waitForFirstElementSelectorString: string, delayInMillisecondsAfterScroll: number, callback: (listElement: HTMLElement) => boolean): Promise<void>;

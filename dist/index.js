@@ -122,44 +122,52 @@ function addDelay(seconds) {
     });
 }
 exports.addDelay = addDelay;
-function scrollList(scrollableContainerSelectorString, listelementSelectorString, delayInMillisecondsAfterScroll, callback) {
+function scrollList(scrollableContainerSelectorString, listelementSelectorString, waitForFirstElementSelectorString, delayInMillisecondsAfterScroll, callback) {
     return __awaiter(this, void 0, void 0, function () {
-        var scrollableContainer, scrollableContainerHeight, scrollableContainerScrollHeight, scrollableContainerScrollTopMax, currentScroll, canEnter, listnode, shouldBreak;
+        var scrollableContainer, scrollableContainerHeight, currentScroll, canEnter, listnode, prevNode, shouldBreak;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, didComponentMount(scrollableContainerSelectorString)];
                 case 1:
                     scrollableContainer = _a.sent();
                     scrollableContainerHeight = scrollableContainer.clientHeight;
-                    scrollableContainerScrollHeight = scrollableContainer.scrollHeight;
-                    scrollableContainerScrollTopMax = scrollableContainerScrollHeight - scrollableContainerHeight;
                     currentScroll = 0;
                     canEnter = true;
-                    listnode = scrollableContainer.querySelector(listelementSelectorString);
-                    _a.label = 2;
+                    return [4 /*yield*/, didChildComponentMount(scrollableContainer, waitForFirstElementSelectorString)];
                 case 2:
-                    if (!(scrollableContainer.scrollTop < scrollableContainerScrollTopMax ||
-                        canEnter === true)) return [3 /*break*/, 6];
-                    shouldBreak = callback(listnode);
-                    if (shouldBreak) {
-                        return [3 /*break*/, 6];
-                    }
-                    if (!listnode.nextSibling) return [3 /*break*/, 3];
-                    listnode = listnode.nextSibling;
-                    return [3 /*break*/, 5];
+                    _a.sent();
+                    return [4 /*yield*/, didChildComponentMount(scrollableContainer, listelementSelectorString)];
                 case 3:
+                    listnode = _a.sent();
+                    prevNode = null;
+                    _a.label = 4;
+                case 4:
+                    if (!(scrollableContainer.scrollTop <
+                        scrollableContainer.scrollHeight - scrollableContainer.clientHeight ||
+                        canEnter === true)) return [3 /*break*/, 8];
+                    if (prevNode != listnode) {
+                        shouldBreak = callback(listnode);
+                        if (shouldBreak) {
+                            return [3 /*break*/, 8];
+                        }
+                        prevNode = listnode;
+                    }
+                    if (!listnode.nextSibling) return [3 /*break*/, 5];
+                    listnode = listnode.nextSibling;
+                    return [3 /*break*/, 7];
+                case 5:
                     currentScroll = scrollableContainer.scrollTop + scrollableContainerHeight;
                     scrollableContainer.scrollTop = currentScroll;
                     canEnter = false;
                     return [4 /*yield*/, addDelay(delayInMillisecondsAfterScroll)];
-                case 4:
+                case 6:
                     _a.sent();
                     if (listnode.nextSibling) {
                         listnode = listnode.nextSibling;
                     }
-                    _a.label = 5;
-                case 5: return [3 /*break*/, 2];
-                case 6: return [2 /*return*/];
+                    _a.label = 7;
+                case 7: return [3 /*break*/, 4];
+                case 8: return [2 /*return*/];
             }
         });
     });
