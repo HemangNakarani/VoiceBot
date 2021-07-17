@@ -1,45 +1,42 @@
-import {checkChildElement,checkElement,addDelay} from '../../utils/utilities'
+import { scrollList } from "voicebot-dommer";
+import {
+  checkChildElement,
+  checkElement,
+  addDelay,
+} from "../../utils/utilities";
 interface valueInterface {
   kind: string;
   stringValue: string;
 }
-export default function setChannels(calendarChannels:Array<valueInterface>) {
-    
-    let button = document.querySelector(
-      '[data-testid="SN_TYPE-filter-summary"]'
-    ) as HTMLElement;
+export default function setChannels(calendarChannels: Array<valueInterface>) {
+  let button = document.querySelector(
+    '[data-testid="SN_TYPE-filter-summary"]'
+  ) as HTMLElement;
+  button.click();
+
+  setFilter(calendarChannels).then(async () => {
+    button = await checkElement('[data-testid="SN_TYPE-filter-summary"]');
     button.click();
+  });
+}
 
-    setFilter(calendarChannels).then(async () => {
-      button = await checkElement('[data-testid="SN_TYPE-filter-summary"]');
-      button.click();
-    });
-  }
-
-
-  async function  setFilter(statusArray: Array<valueInterface>) {
-    let listContainer = await checkElement(
-      ".ReactVirtualized__Grid.ReactVirtualized__List.KWGO"
-    );
-    await checkChildElement(listContainer, "input");
-
-    let listNode = listContainer.querySelectorAll("input");
-    let currentElement = listNode[listNode.length - 1];
-    let lastElement = null;
-
-    while (lastElement != currentElement) {
-      listNode.forEach((input) => {
-        const value = input.getAttribute("data-testid")?.toLowerCase();
-        let arr = statusArray.filter((item) => {
-          return item.stringValue.toLowerCase() === value;
-        });
-        arr.length !== 0 && !input.checked ? input.click() : null;
+async function setFilter(statusArray: Array<valueInterface>) {
+  await scrollList(
+    ".ReactVirtualized__Grid.ReactVirtualized__List.KWGO",
+    "li",
+    "input",
+    100,
+    (listElement) => {
+      const value = listElement
+        .querySelector("p")
+        ?.textContent?.toLocaleLowerCase();
+      const input = listElement.querySelector("input") as HTMLInputElement;
+      let arr = statusArray.filter((item) => {
+        return item.stringValue.toLowerCase() === value;
       });
 
-      currentElement.scrollIntoView(true);
-      await addDelay(100);
-      listNode = listContainer.querySelectorAll("input");
-      lastElement = currentElement;
-      currentElement = listNode[listNode.length - 1];
+      arr.length !== 0 ? input.click() : null;
+      return false;
     }
-  }
+  );
+}

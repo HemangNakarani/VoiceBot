@@ -104,6 +104,7 @@ async function setFilterSmartTags(
   await scrollList(
     ".ReactVirtualized__Grid.ReactVirtualized__List._2jiM",
     "li",
+    "input",
     100,
     (listElement) => {
       let arr = statusArray.filter(
@@ -127,18 +128,24 @@ async function setFilterSmartTags(
 }
 
 async function setFilter(statusArray: { kind: string; stringValue: string }[]) {
-  await scrollList(".popoverWithTwistyContainer", "li", 100, (listItem) => {
-    let arr = statusArray.filter(
-      (item) =>
-        item.stringValue.toLowerCase() ===
-        listItem.querySelector("p")?.textContent?.toLowerCase()
-    );
-    if (arr.length !== 0) {
-      console.log("Found");
-      listItem.querySelector(`input`)?.click();
+  await scrollList(
+    ".popoverWithTwistyContainer",
+    "li",
+    "input",
+    100,
+    (listItem) => {
+      let arr = statusArray.filter(
+        (item) =>
+          item.stringValue.toLowerCase() ===
+          listItem.querySelector("p")?.textContent?.toLowerCase()
+      );
+      if (arr.length !== 0) {
+        console.log("Found");
+        listItem.querySelector(`input`)?.click();
+      }
+      return false;
     }
-    return false;
-  });
+  );
   return true;
 }
 
