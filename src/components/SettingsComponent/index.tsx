@@ -7,7 +7,7 @@ interface Props {}
 export default function index({}: Props): ReactElement {
   return (
     <div className={style["container"]}>
-      <h1 className={style["heading"]}>Settings</h1>
+              <div className={style["heading"]}>Settings</div>
       <div className={style["opacity"]}>
         <p>Opacity</p>
         <RangeSlider />

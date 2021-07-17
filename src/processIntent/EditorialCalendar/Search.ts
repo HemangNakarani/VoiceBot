@@ -1,13 +1,8 @@
-export default function search(query: string) {
-  let button = document.querySelector(
-    ".flex-item-1.txt-bd2._45vC.fIKM.center-y.p-x-4._20Rc._2PdY"
-  ) as HTMLButtonElement;
-  let input = button.querySelector("input") as HTMLInputElement;
-  input.value = query;
+import {setInput} from 'voicebot-dommer'
 
-  let event = new Event("input", {
-    bubbles: true,
-    cancelable: true,
-  });
-  input.dispatchEvent(event);
+export default function search(query: string) {
+  let input = document.querySelector(
+    `[data-testid="typeAheadContainer"] input`
+  ) as HTMLInputElement;
+  setInput(input,query)
 }

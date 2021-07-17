@@ -1,4 +1,5 @@
-import {checkChildElement,checkElement,addDelay} from '../../utils/utilities'
+import {addDelay} from '../../utils/utilities'
+import {didComponentMount,didChildComponentMount} from "voicebot-dommer"
 
 interface valueInterface {
   kind: string;
@@ -13,16 +14,16 @@ export default function setStatus(calendarStatus: Array<valueInterface>) {
     button.click();
     setFilter(calendarStatus).then(async()=>{
       
-      button = await checkElement('[data-testid="OUTBOUND_STATUS-filter-summary"]') as HTMLButtonElement
+      button = await didComponentMount('[data-testid="OUTBOUND_STATUS-filter-summary"]') as HTMLButtonElement
       button.click()
     });
   }
 
   async function  setFilter(statusArray: Array<any>) {
-    let listContainer = await checkElement(
+    let listContainer = await didComponentMount(
       ".ReactVirtualized__Grid.ReactVirtualized__List.KWGO"
     );
-    await checkChildElement(listContainer, "input");
+    await didChildComponentMount(listContainer, "input");
 
     let listNode = listContainer.querySelectorAll("input");
     let currentElement = listNode[listNode.length - 1];
