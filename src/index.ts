@@ -105,3 +105,8 @@ export async function scrollList(
     }
   }
 }
+
+export function click(selector: string) {
+  let element = document.querySelector(selector) as HTMLElement;
+  element.click();
+}
