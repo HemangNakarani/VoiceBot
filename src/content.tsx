@@ -109,8 +109,4 @@ function dragElement(elem: HTMLElement, button: HTMLElement) {
 
 // For Minimizing Injected Component
 switchBot.onclick = toggle;
-minimizeButton.onclick = handleMinimize;
-
-function handleMinimize() {
-  app.style.display = "none";
-}
+minimizeButton.onclick = toggle;
