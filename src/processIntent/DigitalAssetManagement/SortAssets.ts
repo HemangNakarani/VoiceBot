@@ -29,7 +29,7 @@ export default async function sortAssets(sortBy: string, order: string) {
 
 // Function to scroll and process each element in List
 async function selectSortKey(sortBy: string) {
-  await scrollList(`ul[data-spaceweb="list"]`, "li", "input", 0, (listnode) => {
+  await scrollList(`ul[data-spaceweb="list"]`, "li", "li", 0, (listnode) => {
     if (sortBy.toLowerCase() === listnode.textContent?.toLowerCase()) {
       listnode.click();
       return true;
