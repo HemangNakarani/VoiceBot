@@ -5,6 +5,13 @@
   font-size: 16px;
   margin: 0;
   padding: 0;
+  display: block;
+  height: 600px;
+  overflow: auto;
+}
+
+.App::-webkit-scrollbar {
+  display: none;
 }
 
 :root {

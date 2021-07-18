@@ -47,6 +47,16 @@
   font-size: 24px;
 }
 
+.bot-mic-container {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  height: 220px;
+  margin-top: 40px;
+}
+
 .bot-mic-circle {
   position: absolute;
   display: flex;
@@ -61,15 +71,6 @@
 .bot-mic-circle > img {
   filter: invert(100%) sepia(0%) saturate(7451%) hue-rotate(109deg)
     brightness(119%) contrast(105%);
-}
-
-.bot-mic-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  height: 220px;
-  margin-top: 40px;
 }
 
 .bot-listening-heading {
