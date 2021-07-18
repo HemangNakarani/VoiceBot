@@ -1,4 +1,4 @@
-import { checkElement, addDelay } from "../../utils/utilities";
+import { didComponentMount, addDelay } from "voicebot-dommer";
 
 type Props = {
   dashboard: string;
@@ -11,13 +11,13 @@ export default async function OpenOrSelectDashboard({
 }: Props) {
   switch (actionType) {
     case "new": {
-      let newTabButton = await checkElement(`[data-action="TAB_ADD_NEW"]`);
+      let newTabButton = await didComponentMount(`[data-action="TAB_ADD_NEW"]`);
       newTabButton.click();
 
-      let careTab = await checkElement(`[aria-label="Modern Care"]`);
+      let careTab = await didComponentMount(`[aria-label="Modern Care"]`);
       careTab.click();
 
-      let openAgentConsole = await checkElement(
+      let openAgentConsole = await didComponentMount(
         `[data-entity="AGENT_CONSOLE"]`
       );
 
@@ -37,14 +37,14 @@ export default async function OpenOrSelectDashboard({
   }
 
   if (dashboard !== "") {
-    let hamburger = await checkElement(`[data-testid="hamburger-open"]`);
+    let hamburger = await didComponentMount(`[data-testid="hamburger-open"]`);
     hamburger.click();
 
     let event = new Event("input", {
       bubbles: true,
     });
 
-    let input = (await checkElement(
+    let input = (await didComponentMount(
       `[aria-label="Search Dashboard"]`
     )) as HTMLInputElement;
     input.value = dashboard;

@@ -1,4 +1,4 @@
-import { addDelay, checkElement } from "../../utils/utilities";
+import { didComponentMount, addDelay } from "voicebot-dommer";
 
 export default async function ColumnActions(params: any) {
   let optionMenuButton = document.querySelector(
@@ -18,41 +18,41 @@ export default async function ColumnActions(params: any) {
 
   switch (action) {
     case "export": {
-      let exportButton = await checkElement(`[data-id="EXPORT"]`);
+      let exportButton = await didComponentMount(`[data-id="EXPORT"]`);
       if (exportButton) exportButton.click();
       break;
     }
 
     case "lock": {
-      let lockButton = await checkElement(`[data-id="LOCK"]`);
+      let lockButton = await didComponentMount(`[data-id="LOCK"]`);
       if (lockButton) lockButton.click();
 
       break;
     }
 
     case "edit": {
-      let editButton = await checkElement(`[data-id="EDIT"]`);
+      let editButton = await didComponentMount(`[data-id="EDIT"]`);
       if (editButton) editButton.click();
 
       break;
     }
 
     case "clone": {
-      let cloneButton = await checkElement(`[data-id="CLONE"]`);
+      let cloneButton = await didComponentMount(`[data-id="CLONE"]`);
       if (cloneButton) cloneButton.click();
 
       break;
     }
 
     case "delete": {
-      let deleteButton = await checkElement(`[data-id="REMOVE"]`);
+      let deleteButton = await didComponentMount(`[data-id="REMOVE"]`);
       if (deleteButton) deleteButton.click();
 
       break;
     }
 
     case "sort": {
-      let sortButton = await checkElement(`[data-id="SORT"]`);
+      let sortButton = await didComponentMount(`[data-id="SORT"]`);
       if (sortButton) sortButton.click();
 
       break;

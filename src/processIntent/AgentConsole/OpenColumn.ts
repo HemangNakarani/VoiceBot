@@ -1,7 +1,7 @@
-import { checkElement } from "../../utils/utilities";
+import { didComponentMount } from "voicebot-dommer";
 
 export default async function OpenColumn(column: string) {
-  let pullIcon = (await checkElement(
+  let pullIcon = (await didComponentMount(
     "div.mStrNameText.pull-xs-left.txt-h4"
   )) as HTMLElement;
   pullIcon.click();
@@ -10,7 +10,7 @@ export default async function OpenColumn(column: string) {
     bubbles: true,
   });
 
-  let input = (await checkElement(
+  let input = (await didComponentMount(
     "input.inputWithPlaceholder"
   )) as HTMLInputElement;
   input.value = column;

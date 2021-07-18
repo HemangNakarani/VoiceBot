@@ -1,9 +1,7 @@
-import {
-  checkElement,
-} from "../../utils/utilities";
+import { didComponentMount } from "voicebot-dommer";
 
 export default async function FilterByDate(dateTime: any, datePeriod: any) {
-  let searchButton = (await checkElement(
+  let searchButton = (await didComponentMount(
     `[data-action="SEARCH"]`
   )) as HTMLButtonElement;
   searchButton.click();
@@ -18,7 +16,7 @@ export default async function FilterByDate(dateTime: any, datePeriod: any) {
     keyCode: 13,
   });
 
-  let container = await checkElement(".mStrSearchFilters");
+  let container = await didComponentMount(".mStrSearchFilters");
 
   let startDateInput = container.querySelector(
     `[id="FRMFLD_Start Date"]`

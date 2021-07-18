@@ -27,6 +27,7 @@
 
 .bot-header-logo {
   width: 3em;
+  margin-left: -0.28em;
 }
 
 .bot-header-heading {
@@ -34,7 +35,7 @@
   font-weight: 200;
   line-height: 34px;
   margin: 0px;
-  font-size: 30px;
+  font-size: 32px;
 }
 
 .bot-header-question {
@@ -43,7 +44,7 @@
   line-height: 20px;
   margin-top: 8px;
   margin-bottom: 0px;
-  font-size: 28px;
+  font-size: 24px;
 }
 
 .bot-mic-circle {
@@ -81,10 +82,10 @@
 }
 
 .bot-recognised-text {
-  margin: 0;
+  margin: 0 1.5em 0 1.5em;
   height: 3em;
   text-align: center;
-  color: rgb(255, 255, 255);
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .bot-mic-wave {

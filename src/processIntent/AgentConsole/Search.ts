@@ -1,15 +1,15 @@
-import {  checkElement } from "../../utils/utilities";
+import { didComponentMount } from "voicebot-dommer";
 
 export default async function Search(
   query: string,
   wordAction: "include" | "exclude" | ""
 ) {
-  let searchButton = (await checkElement(
+  let searchButton = (await didComponentMount(
     `[data-action="SEARCH"]`
   )) as HTMLButtonElement;
   searchButton.click();
 
-  let container = await checkElement(".mStrSearchFilters");
+  let container = await didComponentMount(".mStrSearchFilters");
   let eventInput = new Event("input", {
     bubbles: true,
   });

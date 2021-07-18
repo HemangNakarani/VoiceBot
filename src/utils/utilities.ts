@@ -21,43 +21,6 @@ export function addDelay(seconds: number) {
   });
 }
 
-function requestAnimationFrameAsync() {
-  return new Promise((resolve) => {
-    requestAnimationFrame(resolve);
-  });
-}
-
-export async function checkElement(selector: string) {
-  let querySelector = null;
-  while (querySelector === null) {
-    await requestAnimationFrameAsync();
-    querySelector = document.querySelector(selector);
-  }
-  return querySelector as HTMLElement;
-}
-
-export async function checkChildElement(
-  selectorElement: HTMLElement,
-  selector: string
-) {
-  let querySelector = null;
-  while (querySelector === null) {
-    await requestAnimationFrameAsync();
-    querySelector = selectorElement.querySelector(selector);
-  }
-  return querySelector as HTMLElement;
-}
-
-export async function checkElements(selector: string) {
-  let querySelector = null;
-  while (querySelector === null || querySelector?.length === 0) {
-    await requestAnimationFrameAsync();
-    querySelector = document.querySelectorAll(selector);
-  }
-
-  return Array.from(querySelector) as HTMLElement[];
-}
-
 export function timeIn12HrFormat(date: Date) {
   let hours = date.getHours();
   let minutes = date.getMinutes();

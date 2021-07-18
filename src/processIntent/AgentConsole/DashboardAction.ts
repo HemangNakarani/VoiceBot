@@ -1,4 +1,4 @@
-import { addDelay, checkElement } from "../../utils/utilities";
+import { didComponentMount, addDelay } from "voicebot-dommer";
 
 export default async function DashboardAction(params: any) {
   let optionMenuButton = document.querySelector(
@@ -11,7 +11,7 @@ export default async function DashboardAction(params: any) {
 
   optionMenuButton.dispatchEvent(eventHover);
 
-  let dashboardActionButton = await checkElement(
+  let dashboardActionButton = await didComponentMount(
     `[data-id="DASHBOARD_SETTINGS"]`
   );
   dashboardActionButton.dispatchEvent(eventHover);
@@ -22,41 +22,45 @@ export default async function DashboardAction(params: any) {
 
   switch (action) {
     case "add": {
-      let addButton = await checkElement(`[aria-label="Add Dashboard"]`);
+      let addButton = await didComponentMount(`[aria-label="Add Dashboard"]`);
       if (addButton) addButton.click();
       break;
     }
 
     case "share": {
-      let shareButton = await checkElement(`[aria-label="Share Dashboard"]`);
+      let shareButton = await didComponentMount(
+        `[aria-label="Share Dashboard"]`
+      );
       if (shareButton) shareButton.click();
 
       break;
     }
 
     case "edit": {
-      let editButton = await checkElement(`[aria-label="Edit Dashboard"]`);
+      let editButton = await didComponentMount(`[aria-label="Edit Dashboard"]`);
       if (editButton) editButton.click();
 
       break;
     }
 
     case "clone": {
-      let cloneButton = await checkElement(`[aria-label="Clone Dashboard"]`);
+      let cloneButton = await didComponentMount(
+        `[aria-label="Clone Dashboard"]`
+      );
       if (cloneButton) cloneButton.click();
 
       break;
     }
 
     case "lock": {
-      let lockButton = await checkElement(`[aria-label="Lock Dashboard"]`);
+      let lockButton = await didComponentMount(`[aria-label="Lock Dashboard"]`);
       if (lockButton) lockButton.click();
 
       break;
     }
 
     case "activity": {
-      let activityButton = await checkElement(`[aria-label="Activity"]`);
+      let activityButton = await didComponentMount(`[aria-label="Activity"]`);
       if (activityButton) activityButton.click();
 
       break;
