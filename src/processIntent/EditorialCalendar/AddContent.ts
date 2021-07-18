@@ -1,13 +1,13 @@
-import { checkElement } from "../../utils/utilities";
+import { didComponentMount } from "voicebot-dommer";
 
 export default async function addContent(content: string) {
-  let button = await checkElement('[data-entityid="moreActions"]');
+  let button = await didComponentMount('[data-entityid="moreActions"]');
   button.click();
-  let addContentButton = await checkElement(
+  let addContentButton = await didComponentMount(
     '[data-id="TOGGLE_ADD_CONTENT_ACTION_LIST"]'
   );
   addContentButton.click();
-  let container = await checkElement('[class="popoverWithTwistyContainer"]');
+  let container = await didComponentMount('[class="popoverWithTwistyContainer"]');
 
   let listNodes = container.querySelectorAll("li");
 

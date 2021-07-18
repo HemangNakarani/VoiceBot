@@ -7,20 +7,16 @@ export default function Slider({}: Props): ReactElement {
   let app = document.querySelector("#my-extension-root") as HTMLElement;
 
   function handleInput(e: ChangeEvent<HTMLInputElement>) {
-    app.style.opacity = e.target.value;
+    let value = e.target.value
+    app.style.opacity = value;
+    let scaled = (Number(value)-0.5)*200
+    let color = `linear-gradient(90deg,rgb(28, 108, 253) ${scaled}% ,rgba(28, 108, 253, 0.1) ${scaled}%)`
+    e.target.style.background = color
   }
 
   return (
-    <div>
-      <input
-        className={style["voicebot-slider"]}
-        type="range"
-        min="0.5"
-        max="1"
-        defaultValue="1"
-        step="0.01"
-        onChangeCapture={handleInput}
-      />
+    <div className={style["slider-container"]}>
+      <input type="range" min="0.5" max="1" defaultValue="1" step="0.001" className={style["slider"]} onChangeCapture={handleInput}/>
     </div>
   );
 }

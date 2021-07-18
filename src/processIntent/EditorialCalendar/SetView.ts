@@ -1,4 +1,4 @@
-import {checkElement} from '../../utils/utilities'
+import {didComponentMount} from "voicebot-dommer"
 
 interface valueInterface {
   kind: string;
@@ -7,7 +7,7 @@ interface valueInterface {
 
 export default async function  setView(calendarContent: Array<valueInterface>) {
 
-    let viewButton = await checkElement(
+    let viewButton = await didComponentMount(
       '[data-entityid="CONFIGURE_VIEW_SETTINGS"]'
     );
     viewButton.click();
@@ -15,7 +15,7 @@ export default async function  setView(calendarContent: Array<valueInterface>) {
     if(calendarContent.length===0)
       return
 
-    let buttonsContainer = await checkElement(
+    let buttonsContainer = await didComponentMount(
       '[data-entityid="SETTINGS_SELECTOR_POPUP"]'
     );
     let [ 

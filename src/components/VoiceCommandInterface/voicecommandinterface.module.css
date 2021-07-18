@@ -15,6 +15,9 @@
   height: 100%;
   padding-bottom: 0px;
   border-radius: 15px;
+  font-family: -apple-system, BlinkMacSystemFont, Roboto, "Segoe UI",
+    "Noto Sans", "Helvetica Neue", Helvetica, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
 .bot-header {
@@ -28,7 +31,7 @@
 
 .bot-header-heading {
   color: rgb(255, 255, 255);
-  font-weight: 300;
+  font-weight: 200;
   line-height: 34px;
   margin: 0px;
   font-size: 30px;
@@ -64,12 +67,13 @@
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  height: 180px;
+  height: 220px;
+  margin-top: 40px;
 }
 
 .bot-listening-heading {
   text-align: center;
-  margin-top: 100px;
+  margin-top: 50px;
   color: rgb(255, 255, 255);
   font-weight: 200;
   line-height: 34px;

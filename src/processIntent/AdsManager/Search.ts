@@ -1,11 +1,8 @@
-export default function search(query:string){
+import {setInput} from 'voicebot-dommer'
 
-    let input = document.querySelector('._1mrN.flex-item-1.full-height._1OsU') as HTMLInputElement
-    input.value=query
-    let event = new Event('input',{
-      bubbles:true,
-      cancelable:true
-    })
-    input.dispatchEvent(event)
-
-  }
+export default function search(query: string) {
+  let input = document.querySelector(
+    `[data-testid="nam-search-box"] input`
+  ) as HTMLInputElement;
+  setInput(input,query)
+}

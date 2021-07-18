@@ -22,6 +22,9 @@ export default function open(entity:string){
         case "Ad Sets":
             url = 'https://champagne.sprinklr.com/advertising/manager/AD_SET'
             break;
+        
+        default :
+            url = 'https://champagne.sprinklr.com/advertising/manager'
     }
 
     window.open(url,"_self")
