@@ -16,7 +16,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://champagne.sprinklr.com/*"],
+      "matches": ["https://*.sprinklr.com/*"],
       "css": ["static/css/extension.css"],
       "js": ["static/js/content.js"]
     }
