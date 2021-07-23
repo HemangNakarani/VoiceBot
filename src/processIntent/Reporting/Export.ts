@@ -1,6 +1,6 @@
 import {didComponentMount,didChildComponentMount} from "voicebot-dommer"
 
-export default async function exportChart() {
+export default async function exportChart(type:string) {
     
     let container  = await didComponentMount('[aria-label="Case First Response SLA over Time"]')
     let optionButton = container.querySelector('[data-actionid="more_actions"]') as HTMLButtonElement
@@ -17,9 +17,17 @@ export default async function exportChart() {
         bubbles: true,
         cancelable: true,
     });
+
+
     exportWidgetButton.dispatchEvent(evt)
     let nestedPopover = await didChildComponentMount(popover,'[data-baseweb="popover"]')
-    let exportPDFButton = nestedPopover?.querySelectorAll('li')[1]
-    exportPDFButton?.click()
 
+    let allButtons = nestedPopover.querySelectorAll('li')
+
+    allButtons.forEach((button)=>{
+
+        let value = button.innerText.split(" ")[2].toLocaleLowerCase()
+        console.log(value)
+        value===type.toLocaleLowerCase()?button.click():null;
+    })
 }

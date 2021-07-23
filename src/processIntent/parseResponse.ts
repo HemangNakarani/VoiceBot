@@ -272,7 +272,9 @@ export default function parseResponse(response: any) {
     }
 
     case ReportingIntent.Export:{
-      Reporting.Export()
+      const parameters = response.parameters.fields;
+      const type = parameters["type"].stringValue
+      Reporting.Export(type)
       break;
     }
     
