@@ -11,14 +11,13 @@ export default async function showChart(datePeriod: any, date: any) {
   ) as HTMLDivElement;
   let button = container.querySelectorAll("button")[2] as HTMLButtonElement;
   button.click();
+  await addDelay(1000)
 
-  let article = await didComponentMount(
-    '[aria-label="Case First Response SLA over Time"]'
-  );
-  await addDelay(1000);
-  article?.scrollIntoView({ behavior: "smooth", block: "center" });
-  await addDelay(500)
-  //Set Date
+  let optionButton = await didComponentMount('[aria-label="Case First Response SLA over Time"]') 
+
+  optionButton?.scrollIntoView({block: "center" });
+
+  
   let startDate, endDate;
   console.log(datePeriod,date)
 
@@ -39,6 +38,12 @@ export default async function showChart(datePeriod: any, date: any) {
     `[data-baseweb="popover"] input`
   )) as HTMLInputElement[];
 
+  let cancelButton = document.querySelector('[aria-label="Cancel"]') as HTMLButtonElement
+
+  if(startDate===undefined){
+      cancelButton.click()
+      return;
+  }
 
 
   let formattedStartDate = dateInMMddyyyyFormat(startDate);
@@ -52,9 +57,17 @@ export default async function showChart(datePeriod: any, date: any) {
   setInput(inputs[2], formattedEndDate);
   setInput(inputs[3], formattedEndTime);
 
+
+
   let saveButton = document.querySelector(
     `[aria-label="Save"]`
   ) as HTMLButtonElement;
   saveButton.click();
+  
+  if(saveButton.disabled===true)
+  {
+      cancelButton.click()
+  }
+  
   
 }
