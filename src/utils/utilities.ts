@@ -73,7 +73,6 @@ export function convertTimeZone(date: Date) {
 }
 
 export function getContext(): string {
-  let host = window.location.host;
   let pathname = window.location.href;
 
   const calendar = new RegExp("/marketing/planner");
@@ -81,6 +80,7 @@ export function getContext(): string {
   const care = new RegExp("/agent-console/");
   const ads = new RegExp("/advertising/manager");
   const reporting = new RegExp("/care/reporting")
+  const supervisor = new RegExp("/care/supervisor-console");
 
   switch (true) {
     case calendar.test(pathname):
@@ -97,6 +97,8 @@ export function getContext(): string {
 
     case reporting.test(pathname):
       return "care_reporting"
+    case supervisor.test(pathname):
+      return "supervisor-console";
 
     default:
       return "";

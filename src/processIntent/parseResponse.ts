@@ -1,6 +1,8 @@
 import AgentConsole, { Intents as ACIntents } from "./AgentConsole";
 import DigitalAssetManagement from "./DigitalAssetManagement";
 import { Intents as DAMIntents } from "./DigitalAssetManagement";
+import SupervisorConsole from "./SupervisorConsole";
+import { Intents as SupervisorConsoleIntents } from "./SupervisorConsole";
 import AdsManager from "./AdsManager";
 import { Intents as AdsIntent } from "./AdsManager";
 import EditorialCalendar from "./EditorialCalendar";
@@ -158,8 +160,8 @@ export default function parseResponse(response: any) {
     case AdsIntent.SetPeriod: {
       const parameters = response.parameters.fields;
 
-      const datePeriod = parameters["date-period"]
-      const date = parameters["date-time"]
+      const datePeriod = parameters["date-period"];
+      const date = parameters["date-time"];
       AdsManager.SetPeriod(datePeriod, date);
       break;
     }
@@ -271,6 +273,25 @@ export default function parseResponse(response: any) {
 
     case ReportingIntent.Export:{
       Reporting.Export()
+      break;
+    }
+    
+    case SupervisorConsoleIntents.Open: {
+      SupervisorConsole.Open();
+      break;
+    }
+
+    case SupervisorConsoleIntents.SelectAgentStatus: {
+      const parameters = response.parameters.fields;
+      const query = parameters["agentstatus"].stringValue;
+      SupervisorConsole.AgentStatus(query);
+      break;
+    }
+
+    case SupervisorConsoleIntents.AgentActivity: {
+      const parameters = response.parameters.fields;
+      const query = parameters["agent-name"].stringValue;
+      SupervisorConsole.OpenAgentActivity(query);
       break;
     }
 
