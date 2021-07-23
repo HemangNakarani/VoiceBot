@@ -7,6 +7,9 @@ import EditorialCalendar from "./EditorialCalendar";
 import { Intents as EditorialIntent } from "./EditorialCalendar";
 import Platform from "./Platform";
 import { Intens as PlatformIntent } from "./Platform";
+import Reporting from "./Reporting"
+import {Intents as ReportingIntent} from "./Reporting"
+
 
 interface valueInterface {
   kind: string;
@@ -227,6 +230,19 @@ export default function parseResponse(response: any) {
       break;
     }
 
+    case EditorialIntent.OpenWithStatus:{
+      EditorialCalendar.OpenWithStatus()
+      break;
+    }
+
+    case EditorialIntent.ChangePeriod:{
+      const parameters = response.parameters.fields;
+      console.log(parameters)
+      const calendarPeriod = parameters['calendar-period'].stringValue
+      EditorialCalendar.ChangePeriod(calendarPeriod)
+      break;
+    }
+
     case PlatformIntent.ClearFilters: {
       Platform.ClearFilters();
       break;
@@ -236,6 +252,25 @@ export default function parseResponse(response: any) {
       const parameters = response.parameters.fields;
       const query = parameters["search-query"].stringValue;
       Platform.Search(query);
+      break;
+    }
+
+    case ReportingIntent.Open:{
+      Reporting.Open()
+      break;
+    }
+
+    case ReportingIntent.ShowChart:{
+
+      const parameters = response.parameters.fields;
+      const datePeriod = parameters["period"]
+      const date = parameters["date"]
+      Reporting.ShowChart(datePeriod,date)
+      break;
+    }
+
+    case ReportingIntent.Export:{
+      Reporting.Export()
       break;
     }
 

@@ -28,7 +28,7 @@ const View = React.forwardRef<HTMLDivElement, ViewProps>(
                   </div>
 
                   <h1 className={style["bot-header-heading"]}>
-                    <span>Hello !</span>
+                    <span>Hello!</span>
                   </h1>
 
                   <h2 className={style["bot-header-question"]}>

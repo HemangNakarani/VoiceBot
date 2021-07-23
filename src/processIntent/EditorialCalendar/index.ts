@@ -6,6 +6,8 @@ import SetDate from './SetDate'
 import SetPeriod from './SetPeriod'
 import SetStatus from './SetStatus'
 import SetView from './SetView'
+import OpenWithStatus from './OpenWithStatus'
+import ChangePeriod from './ChangePeriod'
 
 export enum Intents {
     Open = "EditorialCalendar.Open",
@@ -16,6 +18,8 @@ export enum Intents {
     SetView = "EditorialCalendar.SetView",
     Search = "EditorialCalendar.Search",
     AddContent = "EditorialCalendar.AddContent",
+    OpenWithStatus = "EditorialCalendar.OpenWithStatus",
+    ChangePeriod = "EditorialCalendar.ChangePeriod"
 
 }
 
@@ -27,6 +31,8 @@ export default{
     SetDate,
     SetPeriod,
     SetStatus,
-    SetView
+    SetView,
+    OpenWithStatus,
+    ChangePeriod
 }
   

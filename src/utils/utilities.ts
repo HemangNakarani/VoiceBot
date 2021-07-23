@@ -48,6 +48,15 @@ export function dateInddMMMyyyyFormat(date: Date) {
   );
 }
 
+export function dateInMMddyyyyFormat(date: Date) {
+  let day = date.getDate();
+  let standardDay = day < 10 ? "0" + day : day;
+
+  return (
+    months[date.getMonth()] +" "+ standardDay +", " + date.getFullYear()
+  );
+}
+
 export function dateInddMMMyyyyFormatAsArray(date: Date) {
   let day = date.getDate();
   let standardDay = day < 10 ? "0" + day : day;
@@ -71,6 +80,7 @@ export function getContext(): string {
   const asset = new RegExp("/marketing/asset-manager");
   const care = new RegExp("/agent-console/");
   const ads = new RegExp("/advertising/manager");
+  const reporting = new RegExp("/care/reporting")
 
   switch (true) {
     case calendar.test(pathname):
@@ -84,6 +94,9 @@ export function getContext(): string {
 
     case ads.test(pathname):
       return "ads_manager";
+
+    case reporting.test(pathname):
+      return "care_reporting"
 
     default:
       return "";
