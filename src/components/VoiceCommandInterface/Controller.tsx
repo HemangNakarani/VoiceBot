@@ -33,8 +33,8 @@ export default function Controller(): ReactElement {
       contexts: contexts,
     });
 
+    setSpeechText("🧞‍♂️ : " + response.fulfillmentText);
     if (response.action === "input.unknown") {
-      setSpeechText(response.fulfillmentText);
     } else {
       parseResponse(response);
     }
